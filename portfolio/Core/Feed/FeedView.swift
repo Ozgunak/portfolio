@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  FeedView.swift
 //  portfolio
 //
 //  Created by özgün aksoy on 2023-10-01.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct FeedView: View {
     @State private var isLoading: Bool = false
 
     var body: some View {
@@ -24,12 +24,12 @@ struct ContentView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Image("titleimage")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 100)
-                }
+//                ToolbarItem(placement: .topBarLeading) {
+//                    Image(systemName: <#T##String#>)
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: 100)
+//                }
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
 //                        AllMessagesView()
@@ -59,5 +59,5 @@ struct ContentView: View {
 
 
 #Preview {
-    ContentView()
+    FeedView()
 }

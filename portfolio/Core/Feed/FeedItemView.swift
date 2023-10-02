@@ -28,6 +28,8 @@ extension FeedItemView {
                             .frame(width: 40, height: 40)
                             .clipShape(Circle())
                             .foregroundColor(Color(.systemGray4))
+//            CircularProfileImageView(user: user)
+
        
             Text("Ozgun")
                 .font(.subheadline)
