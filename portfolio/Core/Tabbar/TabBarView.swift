@@ -12,7 +12,7 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $selectedIndex) {
-            ContentView()
+            FeedView()
                 .onAppear {
                     selectedIndex = 0
                 }
@@ -43,7 +43,7 @@ struct TabBarView: View {
                 .tag(3)
             
             
-            Text("Profile")
+            ProfileFactory(user: DBUser.MOCK_USER, navStackNeeded: true)
                 .onAppear {
                     selectedIndex = 4
                 }
