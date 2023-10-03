@@ -15,8 +15,10 @@ struct FeedItemView: View {
             
             postBody
             
-            Divider()
+            
         }
+        .padding(.vertical)
+        .background(.ultraThinMaterial)
     }
 }
 
@@ -35,6 +37,11 @@ extension FeedItemView {
                 .font(.subheadline)
                 .fontWeight(.semibold)
                 .padding(.leading, 4)
+            
+            Text("6 hours ago")
+//            Text(project.timeStamp.dateValue().formatted(.relative(presentation: .numeric)))
+                .font(.caption)
+                .fontWeight(.thin)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
