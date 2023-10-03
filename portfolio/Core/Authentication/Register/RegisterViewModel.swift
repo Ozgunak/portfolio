@@ -15,7 +15,8 @@ class RegistrationViewModel: ObservableObject {
     
     func createUser() async throws {
         if !email.isEmpty && !password.isEmpty {
-            try await AuthenticationManager.shared.createUser(email: email, password: password)
+            let authUser = try await AuthenticationManager.shared.createUser(email: email, password: password)
+            try await FirestoreManager.shared.createUser(authUser: authUser, username: username)
             email = ""
             password = ""
             username = ""

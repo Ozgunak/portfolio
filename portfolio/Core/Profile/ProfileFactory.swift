@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileFactory: View {
-    let user: DBUser
+    @State var user: DBUser = DBUser.MOCK_USER
     let navStackNeeded: Bool
     @Environment(\.dismiss) var dismiss
 
@@ -21,9 +21,15 @@ struct ProfileFactory: View {
                     .navigationBarBackButtonHidden()
             }
         }
-        .onAppear{
-            let authUser = try? AuthenticationManager.shared.getAuthUser()
-            self.showSignInView = authUser == nil
+        .task {
+            do {
+                let authUser = try AuthenticationManager.shared.getAuthUser()
+                user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
+                self.showSignInView = authUser.isAnonymous == true
+
+            } catch {
+                print("Error: fetching user \(error.localizedDescription)")
+            }
         }
         .sheet(isPresented: $showSignInView) {
             NavigationStack {
