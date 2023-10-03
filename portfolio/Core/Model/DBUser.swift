@@ -15,7 +15,7 @@ struct DBUser: Identifiable, Hashable, Codable {
     var fullName: String?
     var bio: String?
     let email: String?
-//    var joinDate: Timestamp? = Timestamp()
+    var joinDate: Timestamp? = Timestamp()
     var followers: [String]?
     var following: [String]?
     
@@ -25,7 +25,7 @@ struct DBUser: Identifiable, Hashable, Codable {
     }
     
     var dictionary: [String:Any] {
-        return ["id": id, "username": username as Any, "profileImageURL": profileImageURL as Any, "fullName": fullName as Any, "bio": bio as Any, "email": email as Any, "followers": followers as Any, "following": following as Any]
+        return ["id": id, "username": username as Any, "profileImageURL": profileImageURL as Any, "fullName": fullName as Any, "bio": bio as Any, "email": email as Any, "followers": followers as Any, "following": following as Any, "joinDate": Timestamp()]
     }
 }
 
@@ -38,5 +38,5 @@ extension DBUser {
         DBUser(id: UUID().uuidString, username: "fifth ", profileImageURL: nil, fullName: "fifth ", bio: "fifth", email: "fifth.com")
     ]
     
-    static var MOCK_USER: DBUser = DBUser(id: "xXmosFckXJeQZn8pyHTxDSKmuB73", username: "oz", profileImageURL: Optional("https://as2.ftcdn.net/v2/jpg/05/79/83/69/1000_F_579836914_yo2WTNUIDANJPGGvhXSGMRc6bfCmUGM7.jpg"), fullName: Optional("Ozgun Ak"), bio: Optional("iOS"), email: "1@2.com", /*joinDate: nil,*/ followers: Optional(["2IoptF5NE5bYFJyxzWSJXXeGz762"]), following: Optional(["2IoptF5NE5bYFJyxzWSJXXeGz762", "H0vHXan5MjZUqpPSf5ppg7YKzwJ3"]))
+    static var MOCK_USER: DBUser = DBUser(id: "xXmosFckXJeQZn8pyHTxDSKmuB73", username: "oz", profileImageURL: Optional("https://as2.ftcdn.net/v2/jpg/05/79/83/69/1000_F_579836914_yo2WTNUIDANJPGGvhXSGMRc6bfCmUGM7.jpg"), fullName: Optional("Ozgun Ak"), bio: Optional("iOS"), email: "1@2.com", joinDate: Timestamp(), followers: Optional(["2IoptF5NE5bYFJyxzWSJXXeGz762"]), following: Optional(["2IoptF5NE5bYFJyxzWSJXXeGz762", "H0vHXan5MjZUqpPSf5ppg7YKzwJ3"]))
 }

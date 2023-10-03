@@ -24,8 +24,10 @@ struct ProfileFactory: View {
         .task {
             do {
                 let authUser = try AuthenticationManager.shared.getAuthUser()
-                user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
                 self.showSignInView = authUser.isAnonymous == true
+                if !authUser.isAnonymous {
+                    user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
+                }
 
             } catch {
                 print("Error: fetching user \(error.localizedDescription)")

@@ -27,7 +27,7 @@ struct TabBarView: View {
                 .tag(1)
             
             
-            Text("Add Project")
+            AddProject(tabIndex: $selectedIndex)
                 .onAppear {
                     selectedIndex = 2
                 }

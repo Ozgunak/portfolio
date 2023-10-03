@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 class UserProfileViewModel: ObservableObject {
     @Published var user: DBUser
-//    @Published var posts = [Post]()
+//    @Published var posts = [Project]()
     @Published var isLoading: Bool = false
     init(user: DBUser) {
         self.user = user
