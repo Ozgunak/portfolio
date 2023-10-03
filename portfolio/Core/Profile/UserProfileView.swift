@@ -28,7 +28,7 @@ struct UserProfileView: View {
                     
                     actionButton
                     
-//                    PostGridView(posts: viewModel.posts, isLoading: viewModel.isLoading)
+                    ProjectCoversView(projects: viewModel.projects, isLoading: viewModel.isLoading)
                     
                 }
             }
@@ -71,7 +71,13 @@ struct UserProfileView: View {
                 EditProfileView(user: viewModel.user)
             }
             .task {
-                authUser = try? AuthenticationManager.shared.getAuthUser()
+                do {
+                    authUser = try? AuthenticationManager.shared.getAuthUser()
+                    try await viewModel.fetchUserProjects()
+
+                } catch {
+                    print("Error: <#description#> \(error.localizedDescription)")
+                }
             }
             
 

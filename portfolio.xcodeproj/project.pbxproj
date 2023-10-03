@@ -51,6 +51,8 @@
 		F084FF6F2ACBE2BB00EAA963 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF6E2ACBE2BB00EAA963 /* Project.swift */; };
 		F084FF712ACC862600EAA963 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF702ACC862600EAA963 /* FeedViewModel.swift */; };
 		F084FF732ACC8E7500EAA963 /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF722ACC8E7500EAA963 /* ProjectManager.swift */; };
+		F084FF762ACCA14F00EAA963 /* MyProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF752ACCA14F00EAA963 /* MyProjectsView.swift */; };
+		F084FF782ACCA57100EAA963 /* ProjectCoversView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF772ACCA57100EAA963 /* ProjectCoversView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +92,8 @@
 		F084FF6E2ACBE2BB00EAA963 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		F084FF702ACC862600EAA963 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		F084FF722ACC8E7500EAA963 /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
+		F084FF752ACCA14F00EAA963 /* MyProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProjectsView.swift; sourceTree = "<group>"; };
+		F084FF772ACCA57100EAA963 /* ProjectCoversView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCoversView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +157,7 @@
 		F084FF0E2ACA2BCD00EAA963 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F084FF742ACCA14100EAA963 /* MyProjects */,
 				F084FF372ACA930900EAA963 /* Authentication */,
 				F084FF302ACA8F3800EAA963 /* Components */,
 				F084FF222ACA870100EAA963 /* Model */,
@@ -236,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				F084FF2C2ACA8EE600EAA963 /* ProfileHeaderView.swift */,
+				F084FF772ACCA57100EAA963 /* ProjectCoversView.swift */,
 				F084FF5E2ACAA6B900EAA963 /* UpdatePasswordView.swift */,
 				F084FF2E2ACA8F1300EAA963 /* ProfileStatsView.swift */,
 			);
@@ -304,6 +310,14 @@
 				F084FF5C2ACAA3F900EAA963 /* ForgotViewModel.swift */,
 			);
 			path = Forgot;
+			sourceTree = "<group>";
+		};
+		F084FF742ACCA14100EAA963 /* MyProjects */ = {
+			isa = PBXGroup;
+			children = (
+				F084FF752ACCA14F00EAA963 /* MyProjectsView.swift */,
+			);
+			path = MyProjects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,6 +428,7 @@
 				F084FF5D2ACAA3F900EAA963 /* ForgotViewModel.swift in Sources */,
 				F084FF3E2ACA935A00EAA963 /* LoginView.swift in Sources */,
 				F084FF552ACA98A100EAA963 /* AuthenticationManager.swift in Sources */,
+				F084FF782ACCA57100EAA963 /* ProjectCoversView.swift in Sources */,
 				F084FF242ACA870700EAA963 /* DBUser.swift in Sources */,
 				F084FF212ACA869500EAA963 /* EditProfileViewModel.swift in Sources */,
 				F084FF1D2ACA3A8A00EAA963 /* TabBarView.swift in Sources */,
@@ -422,6 +437,7 @@
 				F084FF2F2ACA8F1300EAA963 /* ProfileStatsView.swift in Sources */,
 				F084FF362ACA907300EAA963 /* ProfileViewModel.swift in Sources */,
 				F084FF5F2ACAA6B900EAA963 /* UpdatePasswordView.swift in Sources */,
+				F084FF762ACCA14F00EAA963 /* MyProjectsView.swift in Sources */,
 				F084FF422ACA93AC00EAA963 /* LoginViewModel.swift in Sources */,
 				F084FF012ACA2B5D00EAA963 /* portfolioApp.swift in Sources */,
 			);

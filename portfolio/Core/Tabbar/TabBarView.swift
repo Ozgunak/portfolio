@@ -36,7 +36,7 @@ struct TabBarView: View {
                 .tag(2)
             
             
-            Text("Projects")
+            MyProjectsView(user: user)
                 .onAppear {
                     selectedIndex = 3
                 }
