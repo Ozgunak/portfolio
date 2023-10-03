@@ -30,4 +30,8 @@ struct FirestoreManager {
         return snapshot.documents.compactMap({ try? $0.data(as: DBUser.self) })
     }
     
+    func updateUserInfo(userId: String, data: [String: Any]) async throws {
+        try await usersCollectionRef.document(userId).updateData(data)
+    }
+    
 }
