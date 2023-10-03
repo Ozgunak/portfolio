@@ -47,6 +47,7 @@ class EditProfileViewModel: ObservableObject {
         if let uiImage {
             let profileString = try? await StorageManager.uploadImage(image: uiImage, savePath: .user)
             data["profileImageURL"] = profileString
+            print(data)
             self.profileImage = Image(uiImage: uiImage)
         }
         
@@ -59,7 +60,9 @@ class EditProfileViewModel: ObservableObject {
             self.bio = bio
         }
         if !data.isEmpty {
+            print(data)
             try await FirestoreManager.shared.updateUserInfo(userId: user.id, data: data)
+            print("updated firestore with new profile data")
         }
         
     }

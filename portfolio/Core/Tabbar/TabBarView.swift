@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TabBarView: View {
+    let user: DBUser
     @State private var selectedIndex = 0
     
     var body: some View {
@@ -43,7 +44,7 @@ struct TabBarView: View {
                 .tag(3)
             
             
-            ProfileFactory(user: DBUser.MOCK_USER, navStackNeeded: true)
+            ProfileFactory(user: user, navStackNeeded: true)
                 .onAppear {
                     selectedIndex = 4
                 }
@@ -55,5 +56,5 @@ struct TabBarView: View {
 }
 
 #Preview {
-    TabBarView()
+    TabBarView(user: DBUser.MOCK_USER)
 }

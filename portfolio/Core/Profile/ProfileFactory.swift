@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileFactory: View {
-    @State var user: DBUser = DBUser.MOCK_USER
+    @State var user: DBUser
     let navStackNeeded: Bool
     @Environment(\.dismiss) var dismiss
 
@@ -25,9 +25,9 @@ struct ProfileFactory: View {
             do {
                 let authUser = try AuthenticationManager.shared.getAuthUser()
                 self.showSignInView = authUser.isAnonymous == true
-                if !authUser.isAnonymous {
+//                if !authUser.isAnonymous {
                     user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
-                }
+//                }
 
             } catch {
                 print("Error: fetching user \(error.localizedDescription)")

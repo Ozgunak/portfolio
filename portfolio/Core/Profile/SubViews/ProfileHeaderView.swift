@@ -13,7 +13,7 @@ struct ProfileHeaderView: View {
     var body: some View {
         VStack {
             HStack(spacing: 30){
-                CircularProfileImageView(user: user)
+                OzProfileImageView(urlString: user.profileImageURL)
                 Spacer()
                 ProfileStatsView(count: projectCount, title: "Projects")
                 ProfileStatsView(count: user.followers?.count ?? 0, title: "Followers")

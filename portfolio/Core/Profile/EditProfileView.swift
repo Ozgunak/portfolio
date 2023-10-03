@@ -54,7 +54,7 @@ struct EditProfileView: View {
                                 .clipShape(.circle)
                         
                         } else {
-                            CircularProfileImageView(user: viewModel.user)
+                            OzProfileImageView(urlString: viewModel.user.profileImageURL)
                         }
                     
                     Text("Edit Profile Picture")
@@ -90,7 +90,8 @@ struct EditProfileRowView: View {
             
             VStack {
                 TextField(placeHolder, text: $text)
-            
+                    .autocorrectionDisabled()
+                    .textInputAutocapitalization(.never)
                 Divider()
             }
         }
