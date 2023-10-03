@@ -9,7 +9,8 @@ import SwiftUI
 
 struct FeedView: View {
     @State private var isLoading: Bool = false
-
+    @StateObject var viewModel = FeedViewModel()
+    
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
@@ -18,8 +19,8 @@ struct FeedView: View {
                         .frame(width: 100, height: 100)
                 }
                 LazyVStack(spacing: 20) {
-                    ForEach(0...20, id: \.self) { index in
-                        FeedItemView()                        
+                    ForEach(viewModel.projects) { project in
+                        FeedItemView(project: project)                        
                     }
                 }
             }
@@ -42,16 +43,16 @@ struct FeedView: View {
                 }
             }
             .refreshable {
-//                try? await viewModel.fetchPosts()
+                try? await viewModel.fetchProjects()
             }
             .task {
-//                do {
-//                    isLoading = true
-//                    try await viewModel.fetchPosts()
-//                    isLoading = false
-//                } catch {
-//                    print("Error: error fetching posts \(error.localizedDescription)")
-//                }
+                do {
+                    isLoading = true
+                    try await viewModel.fetchProjects()
+                    isLoading = false
+                } catch {
+                    print("Error: error fetching projects \(error.localizedDescription)")
+                }
             }
         }
     }

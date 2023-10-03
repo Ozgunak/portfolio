@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct FeedItemView: View {
+    let project: Project
     var body: some View {
         VStack {
             header()
@@ -25,21 +26,16 @@ struct FeedItemView: View {
 extension FeedItemView {
     func header() -> some View {
         HStack {
-            Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .clipShape(Circle())
-                            .foregroundColor(Color(.systemGray4))
-//            CircularProfileImageView(user: user)
-
-       
-            Text("Ozgun")
+            if let url = project.user?.profileImageURL {
+                OzProfileImageView(urlString: url, size: .small)
+            }
+            
+            Text(project.user?.username ?? "Test")
                 .font(.subheadline)
                 .fontWeight(.semibold)
                 .padding(.leading, 4)
             
-            Text("6 hours ago")
-//            Text(project.timeStamp.dateValue().formatted(.relative(presentation: .numeric)))
+            Text(project.timeStamp.dateValue().formatted(.relative(presentation: .numeric)))
                 .font(.caption)
                 .fontWeight(.thin)
         }
@@ -50,15 +46,15 @@ extension FeedItemView {
     var postBody: some View {
         VStack {
             
-            Text("iOS Dev")
+            Text(project.user?.bio ?? "Test bio")
                 .font(.footnote)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
                 .padding(.top, 2)
             
                 TabView {
-                    ForEach(0...5, id: \.self) { index in
-                        KFImage(URL(string: "https://imgv3.fotor.com/images/blog-richtext-image/part-blurry-image.jpg"))
+                    ForEach(project.detailImageUrls, id: \.self) { url in
+                        KFImage(URL(string: url))
                             .placeholder({
                                 ProgressView()
                             })
@@ -103,5 +99,5 @@ extension FeedItemView {
     }
 }
 #Preview {
-    FeedItemView()
+    FeedItemView(project: Project.MOCK_PROJECT)
 }

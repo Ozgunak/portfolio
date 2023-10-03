@@ -9,12 +9,18 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+enum FirestorePath: String {
+    case users
+    case projects
+}
+
 struct FirestoreManager {
     static let shared = FirestoreManager()
     
     private init () {}
     
-    private let usersCollectionRef = Firestore.firestore().collection("users")
+    private let usersCollectionRef = Firestore.firestore().collection(FirestorePath.users.rawValue)
+    private let projectCollectionRef = Firestore.firestore().collection(FirestorePath.projects.rawValue)
     
     func createUser(authUser: AuthDataResultModel, username: String) async throws {
         let user = DBUser(id: authUser.uid, username: username, email: authUser.email)
@@ -31,7 +37,14 @@ struct FirestoreManager {
     }
     
     func updateUserInfo(userId: String, data: [String: Any]) async throws {
-        try await usersCollectionRef.document(userId).updateData(data)
+        print("update user starts")
+        try await usersCollectionRef.document(userId).setData(data, merge: true)
+        print("update user ends")
+    }
+    
+    func fetchProjects() async throws -> [Project] {
+        let snapshot = try await projectCollectionRef.getDocuments()
+        return snapshot.documents.compactMap({ try? $0.data(as: Project.self) })
     }
     
 }
