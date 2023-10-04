@@ -10,23 +10,25 @@ import SwiftUI
 @MainActor
 class MyProjectsViewModel: ObservableObject {
     @Published var projects: [Project] = []
-    @Published var user: DBUser
+    @Published var user: DBUser?
     
-    init(user: DBUser) {
-        self.user = user
-    }
+//    init(user: DBUser) {
+//        self.user = user
+//    }
     func fetchMyProjects() async throws {
+        let authUser = try AuthenticationManager.shared.getAuthUser()
+        let user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
         projects = try await ProjectManager.shared.fetchUserProject(userId: user.id)
     }
 }
 
 struct MyProjectsView: View {
-    @StateObject var viewModel: MyProjectsViewModel
+    @StateObject var viewModel = MyProjectsViewModel()
     @State private var isLoading: Bool = false
 
-    init(user: DBUser) {
-        self._viewModel = StateObject(wrappedValue: MyProjectsViewModel(user: user))
-    }
+//    init(user: DBUser) {
+//        self._viewModel = StateObject(wrappedValue: MyProjectsViewModel(user: user))
+//    }
     var body: some View {
         VStack {
             if isLoading {
@@ -52,5 +54,5 @@ struct MyProjectsView: View {
 }
 
 #Preview {
-    MyProjectsView(user: DBUser.MOCK_USER)
+    MyProjectsView()
 }

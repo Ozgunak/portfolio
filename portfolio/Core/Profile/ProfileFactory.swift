@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileFactory: View {
-    @State var user: DBUser
+    @State var user: DBUser?
     let navStackNeeded: Bool
     @Environment(\.dismiss) var dismiss
 
@@ -16,9 +16,16 @@ struct ProfileFactory: View {
 
     var body: some View {
         VStack {
-            NavigationStack {
+            if let user, !showSignInView, navStackNeeded {
+                NavigationStack {
+                    UserProfileView(user: user, showSignInView: $showSignInView)
+                        .navigationBarBackButtonHidden()
+                }
+            } else if let user, !showSignInView {
                 UserProfileView(user: user, showSignInView: $showSignInView)
                     .navigationBarBackButtonHidden()
+            } else {
+                
             }
         }
         .task {

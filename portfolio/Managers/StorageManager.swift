@@ -9,25 +9,17 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
-enum StoragePath {
-    case user
-    case project
-    
-    var stringValue: String {
-        switch self {
-        case .user:
-            return "profileImages"
-        case .project:
-            return "projects"
-        }
-    }
+enum StoragePath: String {
+    case users
+    case projects
+    case videos
 }
 
 struct StorageManager {
     static func uploadImage(image: UIImage, savePath: StoragePath) async throws -> String? {
         guard let imageData = image.jpegData(compressionQuality: 0.5) else { return nil }
         let fileName = UUID().uuidString
-        let ref = Storage.storage().reference(withPath: "/\(savePath.stringValue)/\(fileName)")
+        let ref = Storage.storage().reference(withPath: "/\(savePath.rawValue)/\(fileName)")
         
         do {
             let meta = StorageMetadata()
@@ -38,6 +30,22 @@ struct StorageManager {
             return url.absoluteString
         } catch {
             print("Error: upload image \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
+    static func uploadVideo(data: Data) async throws -> String? {
+        let fileName = UUID().uuidString
+        let ref = Storage.storage().reference(withPath: "/\(StoragePath.videos.rawValue)/\(fileName)")
+        let meta = StorageMetadata()
+        meta.contentType = "video/quicktime"
+        
+        do {
+            let _ = try await ref.putDataAsync(data, metadata: meta)
+            let url = try await ref.downloadURL()
+            return url.absoluteString
+        } catch {
+            print("Error: uploading image \(error.localizedDescription)")
             return nil
         }
     }

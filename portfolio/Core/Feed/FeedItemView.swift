@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Kingfisher
+import AVKit
 
 struct FeedItemView: View {
     let project: Project
@@ -52,6 +53,13 @@ extension FeedItemView {
                 .padding(.horizontal)
                 .padding(.top, 2)
             
+            if let videoUrl = project.videoUrl, !videoUrl.isEmpty {
+                var player = AVPlayer(url: URL(string: videoUrl)!)
+                VideoPlayer(player: player)
+                    .frame(height: 400)
+                
+
+            } else {
                 TabView {
                     ForEach(project.detailImageUrls, id: \.self) { url in
                         KFImage(URL(string: url))
@@ -63,11 +71,11 @@ extension FeedItemView {
                             .containerRelativeFrame(.horizontal)
                             .clipShape(.rect)
                     }
-            }
+                }
                 .tabViewStyle(.page)
                 .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-            .frame(height: 400)
-            
+                .frame(height: 400)
+            }
             HStack{
                 Button {
                 } label: {

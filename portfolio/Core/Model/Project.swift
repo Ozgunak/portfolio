@@ -18,6 +18,7 @@ struct Project: Identifiable, Hashable, Codable {
     var detailImageUrls: [String]
     //    var comments: [Comment]
     var timeStamp: Timestamp
+    var videoUrl: String?
     var user: DBUser?
 }
 

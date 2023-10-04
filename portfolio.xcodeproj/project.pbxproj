@@ -46,7 +46,7 @@
 		F084FF652ACB43A100EAA963 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F084FF642ACB43A100EAA963 /* FirebaseStorage */; };
 		F084FF672ACB43B200EAA963 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF662ACB43B200EAA963 /* FirestoreManager.swift */; };
 		F084FF692ACB4B3400EAA963 /* AuthDataResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF682ACB4B3400EAA963 /* AuthDataResultModel.swift */; };
-		F084FF6B2ACBDFE800EAA963 /* AddProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF6A2ACBDFE800EAA963 /* AddProject.swift */; };
+		F084FF6B2ACBDFE800EAA963 /* AddProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF6A2ACBDFE800EAA963 /* AddProjectView.swift */; };
 		F084FF6D2ACBE09100EAA963 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF6C2ACBE09100EAA963 /* StorageManager.swift */; };
 		F084FF6F2ACBE2BB00EAA963 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF6E2ACBE2BB00EAA963 /* Project.swift */; };
 		F084FF712ACC862600EAA963 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF702ACC862600EAA963 /* FeedViewModel.swift */; };
@@ -87,7 +87,7 @@
 		F084FF5E2ACAA6B900EAA963 /* UpdatePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordView.swift; sourceTree = "<group>"; };
 		F084FF662ACB43B200EAA963 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		F084FF682ACB4B3400EAA963 /* AuthDataResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataResultModel.swift; sourceTree = "<group>"; };
-		F084FF6A2ACBDFE800EAA963 /* AddProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProject.swift; sourceTree = "<group>"; };
+		F084FF6A2ACBDFE800EAA963 /* AddProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectView.swift; sourceTree = "<group>"; };
 		F084FF6C2ACBE09100EAA963 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		F084FF6E2ACBE2BB00EAA963 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		F084FF702ACC862600EAA963 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 		F084FF162ACA3A5A00EAA963 /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				F084FF6A2ACBDFE800EAA963 /* AddProject.swift */,
+				F084FF6A2ACBDFE800EAA963 /* AddProjectView.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -424,7 +424,7 @@
 				F084FF692ACB4B3400EAA963 /* AuthDataResultModel.swift in Sources */,
 				F084FF2D2ACA8EE600EAA963 /* ProfileHeaderView.swift in Sources */,
 				F084FF672ACB43B200EAA963 /* FirestoreManager.swift in Sources */,
-				F084FF6B2ACBDFE800EAA963 /* AddProject.swift in Sources */,
+				F084FF6B2ACBDFE800EAA963 /* AddProjectView.swift in Sources */,
 				F084FF5D2ACAA3F900EAA963 /* ForgotViewModel.swift in Sources */,
 				F084FF3E2ACA935A00EAA963 /* LoginView.swift in Sources */,
 				F084FF552ACA98A100EAA963 /* AuthenticationManager.swift in Sources */,

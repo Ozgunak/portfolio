@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 enum FirestorePath: String {
     case users
     case projects
+    case videos
 }
 
 struct FirestoreManager {
@@ -21,7 +22,7 @@ struct FirestoreManager {
     
     private let usersCollectionRef = Firestore.firestore().collection(FirestorePath.users.rawValue)
     private let projectCollectionRef = Firestore.firestore().collection(FirestorePath.projects.rawValue)
-    
+
     func createUser(authUser: AuthDataResultModel, username: String) async throws {
         let user = DBUser(id: authUser.uid, username: username, email: authUser.email)
         try await usersCollectionRef.document(authUser.uid).setData(user.dictionary)
@@ -47,4 +48,7 @@ struct FirestoreManager {
         return snapshot.documents.compactMap({ try? $0.data(as: Project.self) })
     }
     
+    func updateProjectVideo(projectId: String, videoUrl: String) async throws {
+        try await projectCollectionRef.document(projectId).setData(["videoUrl": videoUrl], merge: true)
+    }
 }
