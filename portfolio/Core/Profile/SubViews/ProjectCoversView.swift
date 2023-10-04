@@ -33,12 +33,20 @@ struct ProjectCoversView: View {
 //                                ProjectView(user: project.user, project: project)
 //                                    .navigationBarBackButtonHidden()
 //                            } label: {
-                                KFImage(URL(string: project.coverImageURL))
+                            if let coverurl = project.coverImageURL {
+                                KFImage(URL(string: coverurl))
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: imageDimension, height: imageDimension)
                                     .clipped()
-//                            }
+                                //                            }
+                            } else if let firstDetail = project.detailImageUrls.first {
+                                KFImage(URL(string: firstDetail))
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: imageDimension, height: imageDimension)
+                                    .clipped()
+                            }
                         }
                     }
 //                }

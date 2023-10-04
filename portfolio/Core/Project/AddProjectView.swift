@@ -23,6 +23,7 @@ class AddProjectViewModel: ObservableObject {
     @Published var selectedVideo: PhotosPickerItem?
     @Published var uploadText: String = ""
     @Published var uploadedVideoUrl: String?
+    @Published var uploadedCoverImageUrl: String?
     private var uiImage: UIImage?
     
     func loadImage(from item: PhotosPickerItem?) async {
@@ -46,10 +47,12 @@ class AddProjectViewModel: ObservableObject {
     
     func uploadProject() async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        guard let uiImage else { return }
-        uploadText = "Uploading Cover Image"
         let projectRef = Firestore.firestore().collection(FirestorePath.projects.rawValue).document()
-        guard let imageUrl = try await StorageManager.uploadImage(image: uiImage, savePath: .projects) else { return }
+
+        if let uiImage  {
+        uploadText = "Uploading Cover Image"
+        uploadedCoverImageUrl = try await StorageManager.uploadImage(image: uiImage, savePath: .projects)
+        }
         uploadText = "Uploading Video"
         if let selectedVideo {
             uploadedVideoUrl = try await uploadVideo(projectRef: projectRef.documentID) ?? ""
@@ -60,7 +63,7 @@ class AddProjectViewModel: ObservableObject {
             guard let detailImageUrl = try await StorageManager.uploadImage(image: image, savePath: .projects) else { return }
             detailImages.append(detailImageUrl)
         }
-        let project = Project(id: projectRef.documentID, ownerUid: uid, projectTitle: projectTitle, description: description, likes: [], coverImageURL: imageUrl, detailImageUrls: detailImages, timeStamp: Timestamp(), videoUrl: uploadedVideoUrl)
+        let project = Project(id: projectRef.documentID, ownerUid: uid, projectTitle: projectTitle, description: description, likes: [], coverImageURL: uploadedCoverImageUrl, detailImageUrls: detailImages, timeStamp: Timestamp(), videoUrl: uploadedVideoUrl)
         guard let encodedProject = try? Firestore.Encoder().encode(project) else { return }
         try await projectRef.setData(encodedProject)
         uploadText = ""
@@ -115,7 +118,7 @@ struct AddProjectView: View {
         viewModel.projectTitle = ""
         viewModel.selectedImage = nil
         viewModel.projectImage = nil
-//        tabIndex = 0
+        tabIndex = 0
     }
 }
 
@@ -197,10 +200,10 @@ extension AddProjectView {
                             .frame(width: 120, height: 120)
                             .clipShape(Circle())
                     }
-                    Text("Select Images")
+                    Text(viewModel.selectionImages.isEmpty ? "Select Images" : "Images Selected")
                         .font(.title)
                         .frame(width: 200, height: 50)
-                        .background(.blue.gradient)
+                        .background(viewModel.selectionImages.isEmpty ? Color.blue.gradient : Color.green.gradient)
                         .foregroundStyle(.white)
                         .clipShape(.rect(cornerRadius: 15))
                 }
@@ -237,7 +240,7 @@ extension AddProjectView {
                     Text(viewModel.selectedVideo == nil ? "Add Your Video" : "Video Selected")
                         .font(.title)
                         .frame(width: 200, height: 50)
-                        .background(.blue.gradient)
+                        .background(viewModel.selectedVideo == nil ? Color.blue.gradient : Color.green.gradient)
                         .foregroundStyle(.white)
                         .clipShape(.rect(cornerRadius: 15))
                 }

@@ -14,7 +14,7 @@ struct Project: Identifiable, Hashable, Codable {
     var projectTitle: String
     var description: String
     var likes: [String]
-    var coverImageURL: String
+    var coverImageURL: String?
     var detailImageUrls: [String]
     //    var comments: [Comment]
     var timeStamp: Timestamp

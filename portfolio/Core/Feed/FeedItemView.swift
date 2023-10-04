@@ -55,8 +55,9 @@ extension FeedItemView {
             
             if let videoUrl = project.videoUrl, !videoUrl.isEmpty {
                 var player = AVPlayer(url: URL(string: videoUrl)!)
-                VideoPlayer(player: player)
-                    .frame(height: 400)
+                VideoPlayer(player: player)                    
+                    .scaledToFit()
+//                    .frame(height: 400)
                 
 
             } else {
