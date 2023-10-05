@@ -53,6 +53,7 @@
 		F084FF732ACC8E7500EAA963 /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF722ACC8E7500EAA963 /* ProjectManager.swift */; };
 		F084FF762ACCA14F00EAA963 /* MyProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF752ACCA14F00EAA963 /* MyProjectsView.swift */; };
 		F084FF782ACCA57100EAA963 /* ProjectCoversView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF772ACCA57100EAA963 /* ProjectCoversView.swift */; };
+		F084FF7A2ACDD8D500EAA963 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF792ACDD8D500EAA963 /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,7 @@
 		F084FF722ACC8E7500EAA963 /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		F084FF752ACCA14F00EAA963 /* MyProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProjectsView.swift; sourceTree = "<group>"; };
 		F084FF772ACCA57100EAA963 /* ProjectCoversView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCoversView.swift; sourceTree = "<group>"; };
+		F084FF792ACDD8D500EAA963 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 		F084FF172ACA3A6100EAA963 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				F084FF792ACDD8D500EAA963 /* SearchView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				F084FF032ACA2B5D00EAA963 /* FeedView.swift in Sources */,
 				F084FF712ACC862600EAA963 /* FeedViewModel.swift in Sources */,
 				F084FF112ACA2D9200EAA963 /* FeedItemView.swift in Sources */,
+				F084FF7A2ACDD8D500EAA963 /* SearchView.swift in Sources */,
 				F084FF2A2ACA8E4300EAA963 /* UserProfileViewModel.swift in Sources */,
 				F084FF402ACA938A00EAA963 /* TextFieldModifier.swift in Sources */,
 				F084FF282ACA8E2B00EAA963 /* UserProfileView.swift in Sources */,

@@ -19,7 +19,7 @@ struct TabBarView: View {
                 .tabItem { Image(systemName: "house") }
                 .tag(0)
                         
-            Text("Search")
+            SearchView()
                 .onAppear {
                     selectedIndex = 1
                 }
