@@ -24,7 +24,7 @@ struct UserProfileView: View {
             ScrollView {
                 VStack {
 
-                    ProfileHeaderView(user: viewModel.user, projectCount: 5)
+                    ProfileHeaderView(user: viewModel.user, projectCount: viewModel.projects.count)
                     
                     actionButton
                     

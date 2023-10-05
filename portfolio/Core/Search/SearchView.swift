@@ -92,7 +92,7 @@ extension SearchItemView {
             .padding(.horizontal)
         }
         .navigationDestination(for: DBUser.self) { user in
-            ProfileFactory(user: user, navStackNeeded: false)
+            ProfileFactory(user: user, isVisitor: !user.isCurrentUser, navStackNeeded: false)
         }
     }
     

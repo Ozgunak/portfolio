@@ -13,8 +13,14 @@ struct FeedItemView: View {
     let project: Project
     var body: some View {
         VStack {
-            header()
-            
+            if let user = project.user {
+                NavigationLink {
+                    ProfileFactory(user: user, isVisitor: !user.isCurrentUser, navStackNeeded: false)
+                } label: {
+                    header()
+                }
+
+            }
             postBody
             
         }

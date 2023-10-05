@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileFactory: View {
     @State var user: DBUser?
     @State var authUser: AuthDataResultModel?
+    let isVisitor: Bool
     var navStackNeeded: Bool
     @Environment(\.dismiss) var dismiss
 
@@ -26,22 +27,26 @@ struct ProfileFactory: View {
             } else if let user, user.isCurrentUser {
                 UserProfileView(user: user, showSignInView: $showSignInView)
                     .navigationBarBackButtonHidden()
-            } else {
-                let _ = print("else block")
+            } else if let user, isVisitor {
+                ProfileView(user: user)
+                    .navigationBarBackButtonHidden()
+
             }
         }
         .task {
-            do {
-                authUser = try AuthenticationManager.shared.getAuthUser()
-                if let authUser {
-                    self.showSignInView = authUser.isAnonymous == true
-                    if !authUser.isAnonymous {
-                        user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
+            if !isVisitor {
+                do {
+                    authUser = try AuthenticationManager.shared.getAuthUser()
+                    if let authUser {
+                        self.showSignInView = authUser.isAnonymous == true
+                        if !authUser.isAnonymous {
+                            user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
+                        }
                     }
+                    
+                } catch {
+                    print("Error: fetching user \(error.localizedDescription)")
                 }
-
-            } catch {
-                print("Error: fetching user \(error.localizedDescription)")
             }
         }
         .sheet(isPresented: $showSignInView) {
@@ -62,5 +67,5 @@ struct ProfileFactory: View {
 }
 
 #Preview {
-    ProfileFactory(user: DBUser.MOCK_USER, navStackNeeded: true)
+    ProfileFactory(user: DBUser.MOCK_USER, isVisitor: false, navStackNeeded: true)
 }

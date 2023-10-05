@@ -10,22 +10,21 @@ import Foundation
 @MainActor
 class ProfileViewModel: ObservableObject {
     @Published var user: DBUser
-//    @Published var posts = [Project]()
+    @Published var projects = [Project]()
     @Published var isLoading: Bool = false
 
     init(user: DBUser) {
         self.user = user
     }
-    
-//    func fetchUserPosts() async throws {
-//        isLoading = true
-//        self.posts = try await PostManager.fetchUserPost(userId: user.id)
-//        
-//        for i in 0 ..< posts.count {
-//            posts[i].user = self.user
-//        }
-//        isLoading = false
-//    }
+    func fetchUserProjects() async throws {
+        isLoading = true
+        self.projects = try await ProjectManager.shared.fetchUserProject(userId: user.id)
+        
+        for i in 0 ..< projects.count {
+            projects[i].user = self.user
+        }
+        isLoading = false
+    }
     
 //    func isFollowing() -> Bool {
 //        guard let currentUserId = Auth.auth().currentUser?.uid else { return false }

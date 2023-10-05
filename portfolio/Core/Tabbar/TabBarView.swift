@@ -43,7 +43,7 @@ struct TabBarView: View {
                 .tag(3)
             
             
-            ProfileFactory(navStackNeeded: true)
+            ProfileFactory(isVisitor: false, navStackNeeded: true)
                 .onAppear {
                     selectedIndex = 4
                 }

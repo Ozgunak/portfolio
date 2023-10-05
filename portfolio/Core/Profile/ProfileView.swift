@@ -18,19 +18,23 @@ struct ProfileView: View {
         
         ScrollView {
             VStack {
-                
-                ProfileHeaderView(user: viewModel.user, projectCount: 3)
+                let _ = print("other profile projects \(viewModel.projects)")
+                ProfileHeaderView(user: viewModel.user, projectCount: viewModel.projects.count)
                 
                 actionButton
                 
-//                PostGridView(posts: viewModel.posts, isLoading: viewModel.isLoading)
-                
+                ProjectCoversView(projects: viewModel.projects, isLoading: viewModel.isLoading)
+
             }
         }
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
         .task {
-            
+            do {
+                try await viewModel.fetchUserProjects()
+            } catch {
+                print("Error: fetch profile view \(error.localizedDescription)")
+            }
         }
         
         
