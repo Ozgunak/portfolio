@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Kingfisher
-import AVKit
+//import AVKit
 
 struct FeedItemView: View {
     let project: Project
@@ -16,7 +16,6 @@ struct FeedItemView: View {
             header()
             
             postBody
-            
             
         }
         .padding(.vertical)
@@ -41,42 +40,43 @@ extension FeedItemView {
                 .fontWeight(.thin)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal)
+        .padding(.horizontal)
     }
     
     var postBody: some View {
         VStack {
-            
             Text(project.user?.bio ?? "Test bio")
                 .font(.footnote)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
                 .padding(.top, 2)
             
-            if let videoUrl = project.videoUrl, !videoUrl.isEmpty {
-                var player = AVPlayer(url: URL(string: videoUrl)!)
-                VideoPlayer(player: player)                    
-                    .scaledToFit()
-//                    .frame(height: 400)
-                
-
-            } else {
-                TabView {
-                    ForEach(project.detailImageUrls, id: \.self) { url in
-                        KFImage(URL(string: url))
-                            .placeholder({
-                                ProgressView()
-                            })
-                            .resizable()
-                            .scaledToFill()
-                            .containerRelativeFrame(.horizontal)
-                            .clipShape(.rect)
-                    }
+            TabView {
+                if let coverUrl = project.coverImageURL, !coverUrl.isEmpty {
+                    KFImage(URL(string: coverUrl))
+                        .placeholder({
+                            ProgressView()
+                        })
+                        .resizable()
+                        .scaledToFill()
+                        .containerRelativeFrame(.horizontal)
+                        .clipShape(.rect)
                 }
-                .tabViewStyle(.page)
-                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-                .frame(height: 400)
+                ForEach(project.detailImageUrls, id: \.self) { url in
+                    KFImage(URL(string: url))
+                        .placeholder({
+                            ProgressView()
+                        })
+                        .resizable()
+                        .scaledToFill()
+                        .containerRelativeFrame(.horizontal)
+                        .clipShape(.rect)
+                }
+                
             }
+            .tabViewStyle(.page)
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+            .frame(height: 400)
             HStack{
                 Button {
                 } label: {
@@ -98,13 +98,23 @@ extension FeedItemView {
                     Image(systemName: "paperplane")
                     Text("Share")
                 }
-                    .font(.footnote)
-                    .padding(.trailing, 4)
+                .font(.footnote)
+                .padding(.trailing, 4)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
             .padding(.top, 2)
         }
+    }
+    
+    var videoSection: some View {
+        /*  Video Section
+         if let videoUrl = project.videoUrl, !videoUrl.isEmpty {
+         var player = AVPlayer(url: URL(string: videoUrl)!)
+         VideoPlayer(player: player)
+         .scaledToFit()
+         } */
+        Text("Uncomment When Video Needed")
     }
 }
 #Preview {

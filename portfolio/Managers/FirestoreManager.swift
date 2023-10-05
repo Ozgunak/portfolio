@@ -23,9 +23,9 @@ struct FirestoreManager {
     private let usersCollectionRef = Firestore.firestore().collection(FirestorePath.users.rawValue)
     private let projectCollectionRef = Firestore.firestore().collection(FirestorePath.projects.rawValue)
 
-    func createUser(authUser: AuthDataResultModel, username: String) async throws {
-        let user = DBUser(id: authUser.uid, username: username, email: authUser.email)
-        try await usersCollectionRef.document(authUser.uid).setData(user.dictionary)
+    func createUser(uid: String, email: String, username: String) async throws {
+        let user = DBUser(id: uid, username: username, email: email)
+        try await usersCollectionRef.document(uid).setData(user.dictionary)
     }
     
     func fetchUser(userId: String) async throws -> DBUser {

@@ -8,7 +8,6 @@
 import SwiftUI
 import Firebase
 import PhotosUI
-import AVKit
 
 @MainActor
 class AddProjectViewModel: ObservableObject {
@@ -54,7 +53,7 @@ class AddProjectViewModel: ObservableObject {
         uploadedCoverImageUrl = try await StorageManager.uploadImage(image: uiImage, savePath: .projects)
         }
         uploadText = "Uploading Video"
-        if let selectedVideo {
+        if selectedVideo != nil {
             uploadedVideoUrl = try await uploadVideo(projectRef: projectRef.documentID) ?? ""
         }
         uploadText = "Uploading Detail Images"
@@ -95,7 +94,7 @@ struct AddProjectView: View {
                     
                    coverSection
                     
-                    videoSection
+//                    videoSection
                     
                    photosSection
                     
@@ -156,7 +155,7 @@ extension AddProjectView {
         HStack {
             VStack(spacing: 0) {
                 OzProfileImageView(image: viewModel.projectImage, size: .xLarge)
-             Text("Project Icon")
+             Text("Cover Image")
             }
             .onTapGesture {
                 isPickerPresented.toggle()
