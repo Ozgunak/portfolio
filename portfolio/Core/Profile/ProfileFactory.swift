@@ -9,31 +9,35 @@ import SwiftUI
 
 struct ProfileFactory: View {
     @State var user: DBUser?
-    let navStackNeeded: Bool
+    @State var authUser: AuthDataResultModel?
+    var navStackNeeded: Bool
     @Environment(\.dismiss) var dismiss
 
     @State private var showSignInView: Bool = false
 
+
     var body: some View {
         VStack {
-            if let user, !showSignInView, navStackNeeded {
+            if let user, navStackNeeded, user.isCurrentUser {
                 NavigationStack {
                     UserProfileView(user: user, showSignInView: $showSignInView)
                         .navigationBarBackButtonHidden()
                 }
-            } else if let user, !showSignInView {
+            } else if let user, user.isCurrentUser {
                 UserProfileView(user: user, showSignInView: $showSignInView)
                     .navigationBarBackButtonHidden()
             } else {
-                
+                let _ = print("else block")
             }
         }
         .task {
             do {
-                let authUser = try AuthenticationManager.shared.getAuthUser()
-                self.showSignInView = authUser.isAnonymous == true
-                if !authUser.isAnonymous {
-                    user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
+                authUser = try AuthenticationManager.shared.getAuthUser()
+                if let authUser {
+                    self.showSignInView = authUser.isAnonymous == true
+                    if !authUser.isAnonymous {
+                        user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
+                    }
                 }
 
             } catch {
@@ -58,5 +62,5 @@ struct ProfileFactory: View {
 }
 
 #Preview {
-    ProfileFactory(user: DBUser.MOCK_USER, navStackNeeded: false)
+    ProfileFactory(user: DBUser.MOCK_USER, navStackNeeded: true)
 }

@@ -10,17 +10,19 @@ import Firebase
 
 struct DBUser: Identifiable, Hashable, Codable {
     let id: String
-    var username: String?
+    var username: String
     var profileImageURL: String?
     var fullName: String?
     var bio: String?
-    let email: String?
+    let email: String
     var joinDate: Timestamp? = Timestamp()
     var followers: [String]?
     var following: [String]?
+    var projects: [Project]?
     
     var isCurrentUser: Bool {
         guard let currentUid = Auth.auth().currentUser?.uid else { return false }
+        print("current User? \(currentUid == id)")
         return currentUid == id
     }
     
