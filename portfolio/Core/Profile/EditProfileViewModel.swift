@@ -16,7 +16,9 @@ class EditProfileViewModel: ObservableObject {
     }
     @Published var profileImage: Image?
     @Published var fullname: String = ""
-    @Published var bio: String = ""
+    @Published var title: String = ""
+    @Published var github: String = ""
+    @Published var linkedin: String = ""
     private var uiImage: UIImage?
     
     init(user: DBUser) {
@@ -25,8 +27,14 @@ class EditProfileViewModel: ObservableObject {
         if let fullName = user.fullName {
             self.fullname = fullName
         }
-        if let bio = user.bio {
-            self.bio = bio
+        if let title = user.title {
+            self.title = title
+        }
+        if let github = user.github {
+            self.github = github
+        }
+        if let linkedin = user.linkedin {
+            self.linkedin = linkedin
         }
     }
     
@@ -55,10 +63,19 @@ class EditProfileViewModel: ObservableObject {
             data["fullName"] = fullname
             self.fullname = fullname
         }
-        if !bio.isEmpty && user.bio != bio {
-            data["bio"] = bio
-            self.bio = bio
+        if !title.isEmpty && user.title != title {
+            data["title"] = title
+            self.title = title
         }
+        if !github.isEmpty && user.github != github {
+            data["github"] = github
+            self.github = github
+        }
+        if !linkedin.isEmpty && user.linkedin != linkedin {
+            data["linkedin"] = linkedin
+            self.linkedin = linkedin
+        }
+        
         if !data.isEmpty {
             print(data)
             try await FirestoreManager.shared.updateUserInfo(userId: user.id, data: data)

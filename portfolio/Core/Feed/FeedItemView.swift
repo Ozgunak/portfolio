@@ -51,7 +51,7 @@ extension FeedItemView {
     
     var postBody: some View {
         VStack {
-            Text(project.user?.bio ?? "Test bio")
+            Text(project.user?.title ?? "Test title")
                 .font(.footnote)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)

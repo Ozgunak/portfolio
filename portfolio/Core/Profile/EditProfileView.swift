@@ -66,7 +66,10 @@ struct EditProfileView: View {
                 Divider()
                 VStack {
                     EditProfileRowView(title: "Full Name", placeHolder: "Enter your name", text: $viewModel.fullname)
-                    EditProfileRowView(title: "Bio", placeHolder: "Enter your bio", text: $viewModel.bio)
+                    EditProfileRowView(title: "Title", placeHolder: "Enter your title", text: $viewModel.title)
+                    EditProfileRowView(title: "Github", placeHolder: "Enter your Github link", text: $viewModel.github, isLinkString: true)
+                    EditProfileRowView(title: "LinkedIn", placeHolder: "Enter your LinkedIn link", text: $viewModel.linkedin, isLinkString: true)
+
                 }
                 .padding(.horizontal)
                 
@@ -81,6 +84,15 @@ struct EditProfileRowView: View {
     let title: String
     let placeHolder: String
     @Binding var text: String
+    let isLinkString: Bool
+
+    
+    init(title: String, placeHolder: String, text: Binding<String>, isLinkString: Bool = false) {
+        self.title = title
+        self.placeHolder = placeHolder
+        self._text = text
+        self.isLinkString = isLinkString
+    }
     
     var body: some View {
         HStack {
@@ -92,6 +104,7 @@ struct EditProfileRowView: View {
                 TextField(placeHolder, text: $text)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
+                    .textContentType(isLinkString ? .emailAddress : .givenName)
                 Divider()
             }
         }

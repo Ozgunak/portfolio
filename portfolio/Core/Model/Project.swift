@@ -37,7 +37,7 @@ extension Project {
         ],
         timeStamp: Timestamp(),
         videoUrl: nil,
-        user: Optional(DBUser(id: "S8FRTEJwbpcqJcNvLLb7XFbp5pH2", username: "User 1", profileImageURL: Optional("https://firebasestorage.googleapis.com:443/v0/b/reservations-5ea6e.appspot.com/o/profileImages%2FF640F87E-3BB9-4174-BEE2-28481FDDFF62?alt=media&token=6e650eb0-e1e4-42bf-a661-b61e35c53d94"), fullName: Optional("Ozgun Aksoy"), bio: Optional("IOS dev"), email: "1@2.com", joinDate: Optional(Timestamp()), followers: nil, following: nil, projects: nil))
+        user: Optional(DBUser(id: "S8FRTEJwbpcqJcNvLLb7XFbp5pH2", username: "User 1", profileImageURL: Optional("https://firebasestorage.googleapis.com:443/v0/b/reservations-5ea6e.appspot.com/o/profileImages%2FF640F87E-3BB9-4174-BEE2-28481FDDFF62?alt=media&token=6e650eb0-e1e4-42bf-a661-b61e35c53d94"), fullName: Optional("Ozgun Aksoy"), title: Optional("IOS dev"), email: "1@2.com", joinDate: Optional(Timestamp()), followers: nil, following: nil, projects: nil))
     )
     
     static var MOCK_PROJECTS: [Project] = [ MOCK_PROJECT, MOCK_PROJECT, MOCK_PROJECT,
@@ -55,7 +55,7 @@ extension Project {
                                                 ],
                                                 timeStamp: Timestamp(),
                                                 videoUrl: nil,
-                                                user: Optional(DBUser(id: "S8FRTEJwbpcqJcNvLLb7XFbp5pH2", username: "User 1", profileImageURL: Optional("https://firebasestorage.googleapis.com:443/v0/b/reservations-5ea6e.appspot.com/o/profileImages%2FF640F87E-3BB9-4174-BEE2-28481FDDFF62?alt=media&token=6e650eb0-e1e4-42bf-a661-b61e35c53d94"), fullName: Optional("Ozgun Aksoy"), bio: Optional("IOS dev"), email: "1@2.com", joinDate: Optional(Timestamp()), followers: nil, following: nil, projects: nil))
+                                                user: Optional(DBUser(id: "S8FRTEJwbpcqJcNvLLb7XFbp5pH2", username: "User 1", profileImageURL: Optional("https://firebasestorage.googleapis.com:443/v0/b/reservations-5ea6e.appspot.com/o/profileImages%2FF640F87E-3BB9-4174-BEE2-28481FDDFF62?alt=media&token=6e650eb0-e1e4-42bf-a661-b61e35c53d94"), fullName: Optional("Ozgun Aksoy"), title: Optional("IOS dev"), email: "1@2.com", joinDate: Optional(Timestamp()), followers: nil, following: nil, projects: nil))
                                             )
     ]
 }
