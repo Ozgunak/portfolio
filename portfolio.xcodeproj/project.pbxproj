@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F02966D22ACEB1C7003DE16C /* ProjectItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02966D12ACEB1C7003DE16C /* ProjectItemView.swift */; };
 		F084FF012ACA2B5D00EAA963 /* portfolioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF002ACA2B5D00EAA963 /* portfolioApp.swift */; };
 		F084FF032ACA2B5D00EAA963 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF022ACA2B5D00EAA963 /* FeedView.swift */; };
 		F084FF052ACA2B5F00EAA963 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F084FF042ACA2B5F00EAA963 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F02966D12ACEB1C7003DE16C /* ProjectItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectItemView.swift; sourceTree = "<group>"; };
 		F084FEFD2ACA2B5D00EAA963 /* portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F084FF002ACA2B5D00EAA963 /* portfolioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = portfolioApp.swift; sourceTree = "<group>"; };
 		F084FF022ACA2B5D00EAA963 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 			children = (
 				F084FF2C2ACA8EE600EAA963 /* ProfileHeaderView.swift */,
 				F084FF772ACCA57100EAA963 /* ProjectCoversView.swift */,
+				F02966D12ACEB1C7003DE16C /* ProjectItemView.swift */,
 				F084FF5E2ACAA6B900EAA963 /* UpdatePasswordView.swift */,
 				F084FF2E2ACA8F1300EAA963 /* ProfileStatsView.swift */,
 			);
@@ -438,6 +441,7 @@
 				F084FF1D2ACA3A8A00EAA963 /* TabBarView.swift in Sources */,
 				F084FF6F2ACBE2BB00EAA963 /* Project.swift in Sources */,
 				F084FF462ACA93CE00EAA963 /* RegisterViewModel.swift in Sources */,
+				F02966D22ACEB1C7003DE16C /* ProjectItemView.swift in Sources */,
 				F084FF2F2ACA8F1300EAA963 /* ProfileStatsView.swift in Sources */,
 				F084FF362ACA907300EAA963 /* ProfileViewModel.swift in Sources */,
 				F084FF5F2ACAA6B900EAA963 /* UpdatePasswordView.swift in Sources */,

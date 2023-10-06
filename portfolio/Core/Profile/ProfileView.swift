@@ -23,6 +23,9 @@ struct ProfileView: View {
                 
                 actionButton
                 
+                ForEach(viewModel.projects) { project in
+                    ProjectItemView(project: project)
+                }
                 ProjectCoversView(projects: viewModel.projects, isLoading: viewModel.isLoading)
 
             }
