@@ -20,76 +20,79 @@ struct ProjectItemView: View {
 
 extension ProjectItemView {
     var option1: some View {
-        VStack(spacing: 0) {
-            
-            Text(project.projectTitle)
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .lineLimit(1)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal)
-            
-            if !project.description.isEmpty {
-                VStack(spacing: 0) {
-                    Color.white.frame(height: 1).frame(maxWidth: .infinity)
-                    Text(project.description)
-                        .font(.footnote)
-                        .lineLimit(2)
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.top, 4)
-                        .padding(.horizontal)
-//                        .background(.ultraThinMaterial)
+        NavigationLink {
+            ProjectView(project: project)
+        } label: {
+            VStack(spacing: 0) {
+                Text(project.projectTitle)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                
+                if !project.description.isEmpty {
+                    VStack(spacing: 0) {
+                        Color.white.frame(height: 1).frame(maxWidth: .infinity)
+                        Text(project.description)
+                            .font(.footnote)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.top, 4)
+                            .padding(.horizontal)
+    //                        .background(.ultraThinMaterial)
+                    }
                 }
-            }
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack() {
-                        ZStack(alignment: .bottomLeading) {
-                            if let coverImageURL = project.coverImageURL{
-                                KFImage(URL(string: coverImageURL))
-                                    .resizable()
-                                    .scaledToFill()
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack() {
+                            ZStack(alignment: .bottomLeading) {
+                                if let coverImageURL = project.coverImageURL{
+                                    KFImage(URL(string: coverImageURL))
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(height: 200)
+                                } else {
+                                    ZStack {
+                                        
+                                        LinearGradient(colors: [.green, .blue, .yellow], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                        .opacity(0.8)
+                                        Text(project.projectTitle)
+                                            .font(.title)
+                                            .foregroundStyle(.white)
+                                            .padding()
+                                            .background(.thinMaterial)
+                                    }
                                     .frame(height: 200)
-                            } else {
-                                ZStack {
-                                    
-                                    LinearGradient(colors: [.green, .blue, .yellow], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                    .opacity(0.8)
-                                    Text(project.projectTitle)
-                                        .font(.title)
-                                        .foregroundStyle(.white)
-                                        .padding()
-                                        .background(.thinMaterial)
+
                                 }
-                                .frame(height: 200)
-
+                                
                             }
-                            
-                        }
-                        .containerRelativeFrame(.horizontal, count: 2, spacing: 10.0)
-                        .clipShape(.rect(cornerRadius: 15))
-
-                    ForEach(project.detailImageUrls, id: \.self) { url in
-                        KFImage(URL(string: url))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 200)
                             .containerRelativeFrame(.horizontal, count: 2, spacing: 10.0)
                             .clipShape(.rect(cornerRadius: 15))
-                            
+
+                        ForEach(project.detailImageUrls, id: \.self) { url in
+                            KFImage(URL(string: url))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: 200)
+                                .containerRelativeFrame(.horizontal, count: 2, spacing: 10.0)
+                                .clipShape(.rect(cornerRadius: 15))
+                                
+                        }
+                                        
+
                     }
-                                    
-
+                    .scrollTargetLayout()
                 }
-                .scrollTargetLayout()
+                .contentMargins(32, for: .scrollContent)
+                .scrollTargetBehavior(.viewAligned)
+                .frame(height: 230)
+                Divider()
             }
-            .contentMargins(32, for: .scrollContent)
-            .scrollTargetBehavior(.viewAligned)
 
-//            Color.gray.frame(maxWidth: .infinity)
-//                .frame(height: 2)
-            Divider()
         }
+
     }
     
     var option2: some View {

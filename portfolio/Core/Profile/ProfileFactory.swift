@@ -43,7 +43,6 @@ struct ProfileFactory: View {
                             user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
                         }
                     }
-                    
                 } catch {
                     print("Error: fetching user \(error.localizedDescription)")
                 }

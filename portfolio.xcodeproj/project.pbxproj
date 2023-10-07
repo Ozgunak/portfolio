@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F02966D22ACEB1C7003DE16C /* ProjectItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02966D12ACEB1C7003DE16C /* ProjectItemView.swift */; };
+		F02966D42AD078F1003DE16C /* SocialLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02966D32AD078F1003DE16C /* SocialLinksView.swift */; };
+		F02966D62AD0E5C7003DE16C /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02966D52AD0E5C7003DE16C /* ProjectView.swift */; };
 		F084FF012ACA2B5D00EAA963 /* portfolioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF002ACA2B5D00EAA963 /* portfolioApp.swift */; };
 		F084FF032ACA2B5D00EAA963 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF022ACA2B5D00EAA963 /* FeedView.swift */; };
 		F084FF052ACA2B5F00EAA963 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F084FF042ACA2B5F00EAA963 /* Assets.xcassets */; };
@@ -59,6 +61,8 @@
 
 /* Begin PBXFileReference section */
 		F02966D12ACEB1C7003DE16C /* ProjectItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectItemView.swift; sourceTree = "<group>"; };
+		F02966D32AD078F1003DE16C /* SocialLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLinksView.swift; sourceTree = "<group>"; };
+		F02966D52AD0E5C7003DE16C /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		F084FEFD2ACA2B5D00EAA963 /* portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F084FF002ACA2B5D00EAA963 /* portfolioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = portfolioApp.swift; sourceTree = "<group>"; };
 		F084FF022ACA2B5D00EAA963 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -204,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				F084FF6A2ACBDFE800EAA963 /* AddProjectView.swift */,
+				F02966D52AD0E5C7003DE16C /* ProjectView.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -246,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				F084FF2C2ACA8EE600EAA963 /* ProfileHeaderView.swift */,
+				F02966D32AD078F1003DE16C /* SocialLinksView.swift */,
 				F084FF772ACCA57100EAA963 /* ProjectCoversView.swift */,
 				F02966D12ACEB1C7003DE16C /* ProjectItemView.swift */,
 				F084FF5E2ACAA6B900EAA963 /* UpdatePasswordView.swift */,
@@ -418,6 +424,7 @@
 				F084FF442ACA93C700EAA963 /* RegisterView.swift in Sources */,
 				F084FF262ACA8E0E00EAA963 /* ProfileFactory.swift in Sources */,
 				F084FF1B2ACA3A7800EAA963 /* RootView.swift in Sources */,
+				F02966D62AD0E5C7003DE16C /* ProjectView.swift in Sources */,
 				F084FF6D2ACBE09100EAA963 /* StorageManager.swift in Sources */,
 				F084FF032ACA2B5D00EAA963 /* FeedView.swift in Sources */,
 				F084FF712ACC862600EAA963 /* FeedViewModel.swift in Sources */,
@@ -438,6 +445,7 @@
 				F084FF782ACCA57100EAA963 /* ProjectCoversView.swift in Sources */,
 				F084FF242ACA870700EAA963 /* DBUser.swift in Sources */,
 				F084FF212ACA869500EAA963 /* EditProfileViewModel.swift in Sources */,
+				F02966D42AD078F1003DE16C /* SocialLinksView.swift in Sources */,
 				F084FF1D2ACA3A8A00EAA963 /* TabBarView.swift in Sources */,
 				F084FF6F2ACBE2BB00EAA963 /* Project.swift in Sources */,
 				F084FF462ACA93CE00EAA963 /* RegisterViewModel.swift in Sources */,
