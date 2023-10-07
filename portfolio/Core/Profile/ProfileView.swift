@@ -18,16 +18,17 @@ struct ProfileView: View {
         
         ScrollView {
             VStack {
-                let _ = print("other profile projects \(viewModel.projects)")
                 ProfileHeaderView(user: viewModel.user, projectCount: viewModel.projects.count)
+                
+                SocialLinksView(user: viewModel.user)
                 
                 actionButton
                 
+                Divider()
                 ForEach(viewModel.projects) { project in
                     ProjectItemView(project: project)
                 }
-                ProjectCoversView(projects: viewModel.projects, isLoading: viewModel.isLoading)
-
+//                ProjectCoversView(projects: viewModel.projects, isLoading: viewModel.isLoading)
             }
         }
         .navigationTitle("Profile")

@@ -28,6 +28,7 @@ struct UserProfileView: View {
                     
                     actionButton
                     
+                    Divider()
                     ForEach(viewModel.projects) { project in
                         ProjectItemView(project: project)
                     }
