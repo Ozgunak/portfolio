@@ -74,7 +74,9 @@ struct SearchItemView: View {
 
 extension SearchItemView {
     var profileSection: some View {
-        NavigationLink(value: user) {
+        NavigationLink {
+            ProfileFactory(user: user, isVisitor: !user.isCurrentUser, navStackNeeded: false)
+        } label: {
             HStack {
                 OzProfileImageView(urlString: user.profileImageURL, size: .small)
                 VStack(alignment: .leading) {
@@ -91,24 +93,30 @@ extension SearchItemView {
             }
             .padding(.horizontal)
         }
-        .navigationDestination(for: DBUser.self) { user in
-            ProfileFactory(user: user, isVisitor: !user.isCurrentUser, navStackNeeded: false)
-        }
+        
+        
+        
     }
     
     var projectsSection: some View {
+        
+        
         Group {
             if let projects = user.projects {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(projects) { project in
-                            VStack {
-                                OzProfileImageView(urlString: project.coverImageURL, size: .xLarge)
-                                Text(project.projectTitle)
-                                    .font(.footnote)
-                                    .multilineTextAlignment(.center)
+                            NavigationLink {
+                                ProjectView(project: project)
+                            } label: {
+                                VStack {
+                                    OzProfileImageView(urlString: project.coverImageURL, size: .xLarge)
+                                    Text(project.projectTitle)
+                                        .font(.footnote)
+                                        .multilineTextAlignment(.center)
+                                }
+                                .frame(width: 120, height: 120)
                             }
-                            .frame(width: 120, height: 120)                            
                         }
                     }
                 }
