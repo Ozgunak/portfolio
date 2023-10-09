@@ -154,20 +154,37 @@ extension AddProjectView {
     var coverSection: some View {
         HStack {
             VStack(spacing: 0) {
-                OzProfileImageView(image: viewModel.projectImage, size: .xLarge)
-             Text("Cover Image")
+                if let image = viewModel.projectImage {
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .clipShape(.rect(cornerRadius: 10))
+                    Text("")
+                           .font(.caption2)
+                } else {
+//                    Image(systemName: "info.circle")
+                    Image("logo")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .clipShape(.rect(cornerRadius: 10))
+                        .foregroundColor(Color(.systemGray4))
+                    Text("100x100 pixels")
+                           .font(.caption2)
+                }
+             
             }
             .onTapGesture {
                 isPickerPresented.toggle()
             }
-            .padding(4)
-            .background(.thinMaterial)
-            .clipShape(.rect(cornerRadius: 8))
+//            .padding(4)
             
             TextField("Enter your project title...", text: $viewModel.projectTitle, axis: .vertical)
                 
         }
-        .padding()    }
+        .padding(.horizontal)
+        .padding(.top)
+    }
     
     var photosSection: some View {
         VStack {

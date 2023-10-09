@@ -24,7 +24,7 @@ struct ProjectView: View {
                         KFImage(URL(string: url))
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 200, height: 200)
+                            .frame(width: 100, height: 100)
                             .clipShape(.rect(cornerRadius: 15))
                             .shadow(radius: 10)
                     }

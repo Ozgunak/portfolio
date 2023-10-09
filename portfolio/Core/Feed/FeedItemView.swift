@@ -59,14 +59,20 @@ extension FeedItemView {
             
             TabView {
                 if let coverUrl = project.coverImageURL, !coverUrl.isEmpty {
-                    KFImage(URL(string: coverUrl))
-                        .placeholder({
-                            ProgressView()
-                        })
-                        .resizable()
-                        .scaledToFill()
-                        .containerRelativeFrame(.horizontal)
-                        .clipShape(.rect)
+                    VStack {
+                        KFImage(URL(string: coverUrl))
+                            .placeholder({
+                                ProgressView()
+                            })
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .clipShape(.rect(cornerRadius: 15))
+                        Text(project.projectTitle)
+                            .font(.title)
+                        Text(project.description)
+                            .font(.footnote)
+                    }
                 }
                 ForEach(project.detailImageUrls, id: \.self) { url in
                     KFImage(URL(string: url))
