@@ -33,7 +33,6 @@ extension ProjectItemView {
                 
                 if !project.description.isEmpty {
                     VStack(spacing: 0) {
-                        Color.white.frame(height: 1).frame(maxWidth: .infinity)
                         Text(project.description)
                             .font(.footnote)
                             .lineLimit(2)
@@ -90,7 +89,6 @@ extension ProjectItemView {
                 .frame(height: 230)
                 Divider()
             }
-
         }
 
     }
@@ -225,5 +223,7 @@ extension ProjectItemView {
 }
 
 #Preview {
-    ProjectItemView()
+    NavigationStack {
+        ProjectItemView()
+    }
 }
