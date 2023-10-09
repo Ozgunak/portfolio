@@ -89,34 +89,29 @@ struct SocialLinksView: View {
     var body: some View {
         ScrollView(.horizontal) {
             HStack {
-//                SocialMedia.github.createLink(link: user.github ?? "")
-                HStack {
+                LabeledContent("Github") {
                     Image("github")
-                        .resizable().scaledToFill()
-                    .frame(width: 44, height: 44)
-                    
-                    Text("Github")
-                        .font(.subheadline)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 44, height: 44)
                 }
-                .padding(8)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(lineWidth: 2)
-                }
-                HStack {
+                .padding(.vertical, 8)
+                .padding(.horizontal)
+                .background(.ultraThickMaterial)
+                .clipShape(.rect(cornerRadius: 16))
+                
+                LabeledContent("LinkedIn") {
                     Image("linkedin")
-                        .resizable().scaledToFill()
-                    .frame(width: 44, height: 44)
-                    
-                    Text("LinkedIn")
-                        .font(.subheadline)
-                        .lineLimit(1)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 44, height: 44)
                 }
-                .padding(8)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(lineWidth: 2)
-                }
+                .padding(.vertical, 8)
+                .padding(.horizontal)
+                .background(.ultraThickMaterial)
+                .clipShape(.rect(cornerRadius: 16))
+                
+
             }
             .padding(1)
         }
