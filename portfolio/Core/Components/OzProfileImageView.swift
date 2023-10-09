@@ -13,6 +13,7 @@ enum OzProfileImageSize {
     case medium
     case large
     case xLarge
+    case xxLarge
     
     var dimentions: CGFloat {
         switch self {
@@ -24,6 +25,8 @@ enum OzProfileImageSize {
             return 80
         case .xLarge:
             return 100
+        case .xxLarge:
+            return 140
         }
     }
 }
