@@ -95,10 +95,10 @@ struct AddProjectView: View {
                    coverSection
                     
 //                    videoSection
-                    
+                    descriptionSection
+
                    photosSection
                     
-                   descriptionSection
                     
                     Spacer()
                 }
