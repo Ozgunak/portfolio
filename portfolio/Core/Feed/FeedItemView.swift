@@ -59,30 +59,61 @@ extension FeedItemView {
             
             TabView {
                 if let coverUrl = project.coverImageURL, !coverUrl.isEmpty {
-                    VStack {
+                    ZStack {
                         KFImage(URL(string: coverUrl))
                             .placeholder({
                                 ProgressView()
                             })
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 100, height: 100)
+                            .containerRelativeFrame(.horizontal)
+                            .frame(height: 400)
                             .clipShape(.rect(cornerRadius: 15))
-                        Text(project.projectTitle)
-                            .font(.title)
-                        Text(project.description)
-                            .font(.footnote)
+                            .blur(radius: 106.0, opaque: true)
+
+                        VStack {
+                            KFImage(URL(string: coverUrl))
+                                .placeholder({
+                                    ProgressView()
+                                })
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 100, height: 100)
+                                .clipShape(.rect(cornerRadius: 15))
+                            Text(project.projectTitle)
+                                .font(.title)
+                                .padding(4)
+                                .background(.thickMaterial)
+                                .clipShape(.rect(cornerRadius: 8))
+                            Text(project.description)
+                                .font(.footnote)
+                                .padding(4)
+                                .background(.ultraThickMaterial)
+                                .clipShape(.rect(cornerRadius: 8))
+                        }
                     }
                 }
                 ForEach(project.detailImageUrls, id: \.self) { url in
-                    KFImage(URL(string: url))
-                        .placeholder({
-                            ProgressView()
-                        })
-                        .resizable()
-                        .scaledToFill()
-                        .containerRelativeFrame(.horizontal)
-                        .clipShape(.rect)
+                    ZStack {
+                        KFImage(URL(string: url))
+                            .placeholder({
+                                ProgressView()
+                            })
+                            .resizable()
+                            .scaledToFill()
+                            .containerRelativeFrame(.horizontal)
+                            .frame(height: 400)
+                            .clipShape(.rect)
+                            .blur(radius: 106.0, opaque: true)
+                        KFImage(URL(string: url))
+                            .placeholder({
+                                ProgressView()
+                            })
+                            .resizable()
+                            .scaledToFit()
+                            .containerRelativeFrame(.horizontal)
+                            .clipShape(.rect)
+                    }
                 }
                 
             }
