@@ -29,14 +29,23 @@ struct ProjectView: View {
                     .font(.subheadline)
                 TabView {
                     ForEach(project.detailImageUrls, id: \.self) { url in
-                        KFImage(URL(string: url))
-                            .placeholder({
-                                ProgressView()
-                            })
-                            .resizable()
-                            .scaledToFill()
-                            .containerRelativeFrame(.horizontal)
-                            .clipShape(.rect(cornerRadius: 8))
+                        ZStack {
+                            KFImage(URL(string: url))
+                                .resizable()
+                                .scaledToFill()
+                                .containerRelativeFrame(.horizontal)
+                                .frame(height: 500)
+                                .clipShape(.rect)
+                                .blur(radius: 106.0, opaque: true)
+                            KFImage(URL(string: url))
+                                .placeholder({
+                                    ProgressView()
+                                })
+                                .resizable()
+                                .scaledToFit()
+                                .containerRelativeFrame(.horizontal)
+                                .clipShape(.rect)
+                        }
                     }
                 }
                 .tabViewStyle(.page)
