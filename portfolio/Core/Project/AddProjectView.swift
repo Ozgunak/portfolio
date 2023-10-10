@@ -23,6 +23,7 @@ class AddProjectViewModel: ObservableObject {
     @Published var uploadText: String = ""
     @Published var uploadedVideoUrl: String?
     @Published var uploadedCoverImageUrl: String?
+    @Published var backgroundImage: BackgroundImages = .bg3
     private var uiImage: UIImage?
     
     func loadImage(from item: PhotosPickerItem?) async {
@@ -62,7 +63,7 @@ class AddProjectViewModel: ObservableObject {
             guard let detailImageUrl = try await StorageManager.uploadImage(image: image, savePath: .projects) else { return }
             detailImages.append(detailImageUrl)
         }
-        let project = Project(id: projectRef.documentID, ownerUid: uid, projectTitle: projectTitle, description: description, likes: [], coverImageURL: uploadedCoverImageUrl, detailImageUrls: detailImages, timeStamp: Timestamp(), videoUrl: uploadedVideoUrl)
+        let project = Project(id: projectRef.documentID, ownerUid: uid, projectTitle: projectTitle, description: description, likes: [], coverImageURL: uploadedCoverImageUrl, detailImageUrls: detailImages, backgroundImage: backgroundImage.rawValue, timeStamp: Timestamp(), videoUrl: uploadedVideoUrl)
         guard let encodedProject = try? Firestore.Encoder().encode(project) else { return }
         try await projectRef.setData(encodedProject)
         uploadText = ""
@@ -86,6 +87,12 @@ struct AddProjectView: View {
                 Text("Please wait")
                     .font(.subheadline)
             }
+            .background {
+                viewModel.backgroundImage.image
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+            }
         } else {
             VStack {
                 header
@@ -99,15 +106,25 @@ struct AddProjectView: View {
 
                    photosSection
                     
+                    Spacer(minLength: 50)
                     
-                    Spacer()
+                                        
                 }
                 .onAppear {
     //                isPickerPresented.toggle()
                 }
-            .photosPicker(isPresented: $isPickerPresented, selection: $viewModel.selectedImage, matching: .any(of: [.images, .not(.videos)]))
+                .photosPicker(isPresented: $isPickerPresented, selection: $viewModel.selectedImage, matching: .any(of: [.images, .not(.videos)]))
+                
+                BackgroundPickerView(selectedImage: $viewModel.backgroundImage)
+
             }
-        }   
+            .background {
+                viewModel.backgroundImage.image
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+            }
+        }
     }
     
     private func clearProjectData() {
@@ -180,6 +197,7 @@ extension AddProjectView {
 //            .padding(4)
             
             TextField("Enter your project title...", text: $viewModel.projectTitle, axis: .vertical)
+                .textFieldStyle(.roundedBorder)
                 
         }
         .padding(.horizontal)
