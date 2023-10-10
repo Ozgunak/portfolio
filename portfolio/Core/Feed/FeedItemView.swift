@@ -21,7 +21,13 @@ struct FeedItemView: View {
                 }
 
             }
-            postBody
+            NavigationLink {
+                ProjectView(project: project)
+            } label: {
+                postBody
+            }
+
+            
             
         }
         .padding(.vertical)
@@ -161,5 +167,7 @@ extension FeedItemView {
     }
 }
 #Preview {
-    FeedItemView(project: Project.MOCK_PROJECT)
+    NavigationStack {
+        FeedItemView(project: Project.MOCK_PROJECT)
+    }
 }
