@@ -21,6 +21,7 @@ struct EditProfileView: View {
             if isLoading {
                 ProgressView()
             }
+            
             VStack {
                 HStack{
                     Button("Cancel") {
@@ -67,18 +68,28 @@ struct EditProfileView: View {
                 VStack {
                     EditProfileRowView(title: "Full Name", placeHolder: "Enter your name", text: $viewModel.fullname)
                     EditProfileRowView(title: "Title", placeHolder: "Enter your title", text: $viewModel.title)
+                    EditProfileRowView(title: "Bio", placeHolder: "Enter your bio", text: $viewModel.bio)
                     EditProfileRowView(title: "Github", placeHolder: "Enter your Github link", text: $viewModel.github, isLinkString: true)
                     EditProfileRowView(title: "LinkedIn", placeHolder: "Enter your LinkedIn link", text: $viewModel.linkedin, isLinkString: true)
 
                 }
                 .padding(.horizontal)
                 
+                
                 Spacer()
+                
+                BackgroundPickerView(selectedImage: $viewModel.backgroundImage)
             }
+            
+        }
+        .background {
+            viewModel.backgroundImage.image
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
         }
     }
 }
-
 
 struct EditProfileRowView: View {
     let title: String
@@ -96,12 +107,14 @@ struct EditProfileRowView: View {
     
     var body: some View {
         HStack {
-            Text(title)
-                .padding(.leading, 8)
-                .frame(width: 100, alignment: .leading)
+            VStack(alignment: .leading) {
+                Text(title)
+                Divider().hidden()
+            }
+            .frame(width: 100, alignment: .leading)
             
             VStack {
-                TextField(placeHolder, text: $text)
+                TextField(placeHolder, text: $text, axis: .vertical)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
                     .textContentType(isLinkString ? .emailAddress : .givenName)
@@ -109,7 +122,6 @@ struct EditProfileRowView: View {
             }
         }
         .font(.subheadline)
-        .frame(height: 36)
     }
 }
 

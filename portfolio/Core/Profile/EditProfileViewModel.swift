@@ -17,8 +17,10 @@ class EditProfileViewModel: ObservableObject {
     @Published var profileImage: Image?
     @Published var fullname: String = ""
     @Published var title: String = ""
+    @Published var bio: String = ""
     @Published var github: String = ""
     @Published var linkedin: String = ""
+    @Published var backgroundImage: BackgroundImages = BackgroundImages.bg3
     private var uiImage: UIImage?
     
     init(user: DBUser) {
@@ -29,6 +31,12 @@ class EditProfileViewModel: ObservableObject {
         }
         if let title = user.title {
             self.title = title
+        }
+        if let bio = user.bio {
+            self.bio = bio
+        }
+        if let bg = BackgroundImages(rawValue: user.backgroundImage ?? "bg2") {
+            self.backgroundImage = bg
         }
         if let github = user.github {
             self.github = github
@@ -66,6 +74,14 @@ class EditProfileViewModel: ObservableObject {
         if !title.isEmpty && user.title != title {
             data["title"] = title
             self.title = title
+        }
+        if !bio.isEmpty && user.bio != bio {
+            data["bio"] = bio
+            self.bio = bio
+        }
+        if user.backgroundImage != backgroundImage.rawValue {
+            data["backgroundImage"] = backgroundImage.rawValue
+            self.backgroundImage = backgroundImage
         }
         if !github.isEmpty && user.github != github {
             data["github"] = github

@@ -38,6 +38,11 @@ struct UserProfileView: View {
             }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
+            .background(
+                Image(viewModel.user.backgroundImage ?? "bg3")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea())
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {

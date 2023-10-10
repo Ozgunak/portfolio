@@ -17,11 +17,8 @@ struct ProfileView: View {
     
     var body: some View {
         
-        ZStack {
-            Image("bg3")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
+//        ZStack {
+            
             ScrollView {
                 VStack {
                     OzProfileImageView(urlString: viewModel.user.profileImageURL, size: .xxLarge)
@@ -51,12 +48,18 @@ struct ProfileView: View {
                     }    
                 }
             }
-            .frame(width: UIScreen.main.bounds.width)
+//            .frame(width: UIScreen.main.bounds.width)
+            
 
             //            ProfileOptionOne(user: viewModel.user, projects: viewModel.projects)
-        }
+//        }
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .background(
+            Image(viewModel.user.backgroundImage ?? "bg3")
+            .resizable()
+            .scaledToFill()
+            .ignoresSafeArea())
         .task {
             do {
                 try await viewModel.fetchUserProjects()
