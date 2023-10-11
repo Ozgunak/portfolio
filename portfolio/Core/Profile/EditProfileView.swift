@@ -69,7 +69,7 @@ struct EditProfileView: View {
                     EditProfileRowView(title: "Full Name", placeHolder: "Enter your name", text: $viewModel.fullname)
                     EditProfileRowView(title: "Title", placeHolder: "Enter your title", text: $viewModel.title)
                     EditProfileRowView(title: "Bio", placeHolder: "Enter your bio", text: $viewModel.bio)
-                    EditProfileRowView(title: "Github", placeHolder: "Enter your Github link", text: $viewModel.github, isLinkString: true)
+                    EditProfileRowView(title: "GitHub", placeHolder: "Enter your GitHub link", text: $viewModel.github, isLinkString: true)
                     EditProfileRowView(title: "LinkedIn", placeHolder: "Enter your LinkedIn link", text: $viewModel.linkedin, isLinkString: true)
 
                 }

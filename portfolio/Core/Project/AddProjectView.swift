@@ -17,6 +17,7 @@ class AddProjectViewModel: ObservableObject {
     @Published var projectImage: Image?
     @Published var projectTitle: String = ""
     @Published var description: String = ""
+    @Published var github: String = ""
     @Published var selectionImages: [UIImage] = []
     @Published var maxSelection: [PhotosPickerItem] = []
     @Published var selectedVideo: PhotosPickerItem?
@@ -63,7 +64,7 @@ class AddProjectViewModel: ObservableObject {
             guard let detailImageUrl = try await StorageManager.uploadImage(image: image, savePath: .projects) else { return }
             detailImages.append(detailImageUrl)
         }
-        let project = Project(id: projectRef.documentID, ownerUid: uid, projectTitle: projectTitle, description: description, likes: [], coverImageURL: uploadedCoverImageUrl, detailImageUrls: detailImages, backgroundImage: backgroundImage.rawValue, timeStamp: Timestamp(), videoUrl: uploadedVideoUrl)
+        let project = Project(id: projectRef.documentID, ownerUid: uid, projectTitle: projectTitle, description: description, likes: [], coverImageURL: uploadedCoverImageUrl, detailImageUrls: detailImages, backgroundImage: backgroundImage.rawValue, timeStamp: Timestamp(), videoUrl: uploadedVideoUrl, github: github)
         guard let encodedProject = try? Firestore.Encoder().encode(project) else { return }
         try await projectRef.setData(encodedProject)
         uploadText = ""
@@ -103,6 +104,8 @@ struct AddProjectView: View {
                     
 //                    videoSection
                     descriptionSection
+                    
+                    githubSection
 
                    photosSection
                     
@@ -144,17 +147,12 @@ extension AddProjectView {
         HStack {
             Button(role: .cancel) {
                 clearProjectData()
-                
             } label: {
                 Text("Cancel")
             }
-            
             Spacer()
-            
             Text("New Project")
-            
             Spacer()
-            
             Button {
                 Task {
                     isLoading = true
@@ -257,6 +255,13 @@ extension AddProjectView {
     
     var descriptionSection: some View {
         TextField("Enter your project description...", text: $viewModel.description, axis: .vertical)
+            .textFieldStyle(.roundedBorder)
+            .padding()
+
+    }
+    
+    var githubSection: some View {
+        TextField("Enter your project GitHub Link...", text: $viewModel.github, axis: .vertical)
             .textFieldStyle(.roundedBorder)
             .padding()
 

@@ -89,7 +89,7 @@ struct SocialLinksView: View {
     var body: some View {
         ScrollView(.horizontal) {
             HStack {
-                LabeledContent("Github") {
+                LabeledContent("GitHub") {
                     Image("github")
                         .resizable()
                         .scaledToFill()
