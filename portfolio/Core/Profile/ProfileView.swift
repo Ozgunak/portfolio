@@ -44,8 +44,10 @@ struct ProfileView: View {
                     SocialLinksView(user: viewModel.user)
 
                     ForEach(viewModel.projects) { project in
-                        ProjectItemView(project: project)
-                    }    
+                        if project.isPublic {
+                            ProjectItemView(project: project)
+                        }
+                    }
                 }
             }
 //            .frame(width: UIScreen.main.bounds.width)

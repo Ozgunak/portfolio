@@ -17,8 +17,8 @@ struct ProjectManager {
     
     func fetchHomeFeedProjects() async throws -> [Project] {
         let snapshot = try await projectsCollectionPath.order(by: "timeStamp", descending: true).getDocuments()
-        var projects = snapshot.documents.compactMap( { try? $0.data(as: Project.self) })
-        
+        let unfilteredProjects = snapshot.documents.compactMap( { try? $0.data(as: Project.self) })
+        var projects = unfilteredProjects.filter( { $0.isPublic })
         for i in 0 ..< projects.count {
             let project = projects[i]
             let ownerUid = project.ownerUid

@@ -106,16 +106,18 @@ extension SearchItemView {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(projects) { project in
-                            NavigationLink {
-                                ProjectView(project: project)
-                            } label: {
-                                VStack {
-                                    OzProfileImageView(urlString: project.coverImageURL, size: .xLarge)
-                                    Text(project.projectTitle)
-                                        .font(.footnote)
-                                        .multilineTextAlignment(.center)
+                            if project.isPublic {
+                                NavigationLink {
+                                    ProjectView(project: project)
+                                } label: {
+                                    VStack {
+                                        OzProfileImageView(urlString: project.coverImageURL, size: .xLarge)
+                                        Text(project.projectTitle)
+                                            .font(.footnote)
+                                            .multilineTextAlignment(.center)
+                                    }
+                                    .frame(width: 120, height: 120)
                                 }
-                                .frame(width: 120, height: 120)
                             }
                         }
                     }
