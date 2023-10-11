@@ -25,6 +25,7 @@ class AddProjectViewModel: ObservableObject {
     @Published var uploadedVideoUrl: String?
     @Published var uploadedCoverImageUrl: String?
     @Published var backgroundImage: BackgroundImages = .bg3
+    @Published var isPublic: Bool = true
     private var uiImage: UIImage?
     
     func loadImage(from item: PhotosPickerItem?) async {
@@ -64,7 +65,7 @@ class AddProjectViewModel: ObservableObject {
             guard let detailImageUrl = try await StorageManager.uploadImage(image: image, savePath: .projects) else { return }
             detailImages.append(detailImageUrl)
         }
-        let project = Project(id: projectRef.documentID, ownerUid: uid, projectTitle: projectTitle, description: description, likes: [], coverImageURL: uploadedCoverImageUrl, detailImageUrls: detailImages, backgroundImage: backgroundImage.rawValue, timeStamp: Timestamp(), videoUrl: uploadedVideoUrl, github: github)
+        let project = Project(id: projectRef.documentID, ownerUid: uid, projectTitle: projectTitle, description: description, likes: [], coverImageURL: uploadedCoverImageUrl, detailImageUrls: detailImages, backgroundImage: backgroundImage.rawValue, timeStamp: Timestamp(), videoUrl: uploadedVideoUrl, github: github, isPublic: isPublic)
         guard let encodedProject = try? Firestore.Encoder().encode(project) else { return }
         try await projectRef.setData(encodedProject)
         uploadText = ""
@@ -111,12 +112,16 @@ struct AddProjectView: View {
                     
                     Spacer(minLength: 50)
                     
-                                        
+                    toggleSection
+
+                    
+
                 }
                 .onAppear {
     //                isPickerPresented.toggle()
                 }
                 .photosPicker(isPresented: $isPickerPresented, selection: $viewModel.selectedImage, matching: .any(of: [.images, .not(.videos)]))
+                
                 
                 BackgroundPickerView(selectedImage: $viewModel.backgroundImage)
 
@@ -257,14 +262,48 @@ extension AddProjectView {
         TextField("Enter your project description...", text: $viewModel.description, axis: .vertical)
             .textFieldStyle(.roundedBorder)
             .padding()
-
     }
     
     var githubSection: some View {
         TextField("Enter your project GitHub Link...", text: $viewModel.github, axis: .vertical)
             .textFieldStyle(.roundedBorder)
             .padding()
-
+    }
+    
+    var toggleSection: some View {
+        Toggle(isOn: $viewModel.isPublic, label: {
+            if viewModel.isPublic {
+                HStack {
+                    Text("Your project is Public")
+                        .font(.subheadline)
+                        .padding(4)
+                        .background(.thinMaterial)
+                        .clipShape(.rect(cornerRadius: 8))
+                    Spacer()
+                    Image(systemName: "text.book.closed")
+                        .imageScale(.large)
+                        .padding(4)
+                        .background(.thinMaterial)
+                        .clipShape(.rect(cornerRadius: 8))
+                }
+            } else {
+                HStack {
+                    Text("Your project is Private")
+                        .font(.subheadline)
+                        .padding(4)
+                        .background(.thinMaterial)
+                        .clipShape(.rect(cornerRadius: 8))
+                    Spacer()
+                    Image(systemName: "lock")
+                        .imageScale(.large)
+                        .padding(4)
+                        .background(.thinMaterial)
+                        .clipShape(.rect(cornerRadius: 8))
+                }
+            }
+        })
+        .animation(.easeOut, value: viewModel.isPublic)
+        .padding(.horizontal)
     }
     
     var videoSection: some View {
