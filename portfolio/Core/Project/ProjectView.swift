@@ -64,14 +64,20 @@ struct ProjectView: View {
                         }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    if let github = project.user?.github {
-                        Image("github")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 40, height: 40)
-                            .onTapGesture {
-                                dismiss()
-                            }
+                    if let github = project.github {
+                        NavigationLink {
+                            WebScreen(url: github)
+                        } label: {
+                            Image("github")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 40, height: 40)
+//                                .onTapGesture {
+//                                    dismiss()
+//                                }
+                        }
+
+                        
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
@@ -95,6 +101,8 @@ struct ProjectView: View {
         }
     }
 }
+
+
 
 #Preview {
     NavigationStack {
