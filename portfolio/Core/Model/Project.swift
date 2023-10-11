@@ -20,6 +20,7 @@ struct Project: Identifiable, Hashable, Codable {
     //    var comments: [Comment]
     var timeStamp: Timestamp
     var videoUrl: String?
+    var github: String?
     var user: DBUser?
 }
 
@@ -39,6 +40,7 @@ extension Project {
         backgroundImage: BackgroundImages.bg3.rawValue,
         timeStamp: Timestamp(),
         videoUrl: nil,
+        github: "https://github.com/Ozgunak/InstagramSwiftUI",
         user: Optional(DBUser(id: "S8FRTEJwbpcqJcNvLLb7XFbp5pH2", username: "User 1", profileImageURL: Optional("https://firebasestorage.googleapis.com:443/v0/b/reservations-5ea6e.appspot.com/o/profileImages%2FF640F87E-3BB9-4174-BEE2-28481FDDFF62?alt=media&token=6e650eb0-e1e4-42bf-a661-b61e35c53d94"), fullName: Optional("Ozgun Aksoy"), title: Optional("IOS dev"), email: "1@2.com", joinDate: Optional(Timestamp()), followers: nil, following: nil, github: "github", projects: nil))
     )
     
