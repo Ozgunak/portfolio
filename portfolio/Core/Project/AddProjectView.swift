@@ -50,10 +50,10 @@ class AddProjectViewModel: ObservableObject {
     func uploadProject() async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let projectRef = Firestore.firestore().collection(FirestorePath.projects.rawValue).document()
-
+        
         if let uiImage  {
-        uploadText = "Uploading Cover Image"
-        uploadedCoverImageUrl = try await StorageManager.uploadImage(image: uiImage, savePath: .projects)
+            uploadText = "Uploading Cover Image"
+            uploadedCoverImageUrl = try await StorageManager.uploadImage(image: uiImage, savePath: .projects)
         }
         uploadText = "Uploading Video"
         if selectedVideo != nil {
@@ -94,6 +94,7 @@ struct AddProjectView: View {
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
+                
             }
         } else {
             VStack {
@@ -101,36 +102,40 @@ struct AddProjectView: View {
                 
                 ScrollView {
                     
-                   coverSection
+                    coverSection
                     
-//                    videoSection
+                    //                    videoSection
                     descriptionSection
                     
                     githubSection
-
-                   photosSection
+                    
+                    photosSection
                     
                     Spacer(minLength: 50)
                     
                     toggleSection
-
                     
-
+                    
+                    
                 }
                 .onAppear {
-    //                isPickerPresented.toggle()
+                    //                isPickerPresented.toggle()
                 }
                 .photosPicker(isPresented: $isPickerPresented, selection: $viewModel.selectedImage, matching: .any(of: [.images, .not(.videos)]))
                 
                 
                 BackgroundPickerView(selectedImage: $viewModel.backgroundImage)
-
+                
             }
             .background {
                 viewModel.backgroundImage.image
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
+//                    .overlay(
+//                        LinearGradient(gradient: Gradient(colors: [.black.opacity(0.2), .clear, .black.opacity(0.2)]),startPoint: .top, endPoint: .bottom)
+//                    )
+                // MARK: Overlay for images
             }
         }
     }
@@ -181,27 +186,27 @@ extension AddProjectView {
                         .frame(width: 100, height: 100)
                         .clipShape(.rect(cornerRadius: 10))
                     Text("")
-                           .font(.caption2)
+                        .font(.caption2)
                 } else {
-//                    Image(systemName: "info.circle")
+                    //                    Image(systemName: "info.circle")
                     Image("logo")
                         .resizable()
                         .frame(width: 100, height: 100)
                         .clipShape(.rect(cornerRadius: 10))
                         .foregroundColor(Color(.systemGray4))
                     Text("100x100 pixels")
-                           .font(.caption2)
+                        .font(.caption2)
                 }
-             
+                
             }
             .onTapGesture {
                 isPickerPresented.toggle()
             }
-//            .padding(4)
+            //            .padding(4)
             
             TextField("Enter your project title...", text: $viewModel.projectTitle, axis: .vertical)
                 .textFieldStyle(.roundedBorder)
-                
+            
         }
         .padding(.horizontal)
         .padding(.top)
@@ -213,12 +218,22 @@ extension AddProjectView {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(viewModel.selectionImages, id: \.self) { image in
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .containerRelativeFrame(.horizontal)
-                                .frame(height: 400)
-                                .clipShape(.rect)
+                            ZStack {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .containerRelativeFrame(.horizontal)
+                                    .frame(height: 400)
+                                    .clipShape(.rect)
+                                    .blur(radius: 106.0, opaque: true)
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .containerRelativeFrame(.horizontal)
+                                    .frame(height: 400)
+                                    .clipShape(.rect)
+                                
+                            }
                         }
                     }
                     .scrollTargetLayout()
