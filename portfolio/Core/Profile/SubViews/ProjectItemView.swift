@@ -61,6 +61,8 @@ extension ProjectItemView {
                                             .foregroundStyle(.white)
                                             .padding()
                                             .background(.thinMaterial)
+                                            .lineLimit(1)
+                                            .minimumScaleFactor(0.3)
                                     }
                                     .frame(height: 200)
 

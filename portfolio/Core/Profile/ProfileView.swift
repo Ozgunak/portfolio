@@ -16,9 +16,7 @@ struct ProfileView: View {
     }
     
     var body: some View {
-        
-//        ZStack {
-            
+                    
             ScrollView {
                 VStack {
                     OzProfileImageView(urlString: viewModel.user.profileImageURL, size: .xxLarge)
@@ -41,7 +39,7 @@ struct ProfileView: View {
                         Divider()
                     }
                     
-                    SocialLinksView(user: viewModel.user)
+                    SocialLinksView(githubLink: viewModel.user.github, linkedinLink: viewModel.user.linkedin)
 
                     ForEach(viewModel.projects) { project in
                         if project.isPublic {
@@ -50,11 +48,6 @@ struct ProfileView: View {
                     }
                 }
             }
-//            .frame(width: UIScreen.main.bounds.width)
-            
-
-            //            ProfileOptionOne(user: viewModel.user, projects: viewModel.projects)
-//        }
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
         .background(
@@ -136,7 +129,7 @@ struct ProfileOptionOne: View {
         VStack {
             ProfileHeaderView(user: user, projectCount: projects.count)
             
-            SocialLinksView(user: user)
+            SocialLinksView(githubLink: user.github, linkedinLink: nil)
             
             actionButton
             

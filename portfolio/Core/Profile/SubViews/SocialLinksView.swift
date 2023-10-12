@@ -85,40 +85,55 @@ enum SocialMedia: Identifiable, CaseIterable {
 
 
 struct SocialLinksView: View {
-    var user: DBUser
+    var githubLink: String?
+    var linkedinLink: String?
     var body: some View {
-        ScrollView(.horizontal) {
             HStack {
-                LabeledContent("GitHub") {
-                    Image("github")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 44, height: 44)
-                }
-                .padding(.vertical, 8)
-                .padding(.horizontal)
-                .background(.ultraThickMaterial)
-                .clipShape(.rect(cornerRadius: 16))
-                
-                LabeledContent("LinkedIn") {
-                    Image("linkedin")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 44, height: 44)
-                }
-                .padding(.vertical, 8)
-                .padding(.horizontal)
-                .background(.ultraThickMaterial)
-                .clipShape(.rect(cornerRadius: 16))
-                
+                if let github = githubLink{
+                    NavigationLink {
+                        WebScreen(url: github)
+                    } label: {
+                        LabeledContent("GitHub") {
+                            Image("github")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 44, height: 44)
+                        }
+                        .padding(.vertical, 8)
+                        .padding(.horizontal)
+                        .background(.ultraThickMaterial)
+                        .clipShape(.rect(cornerRadius: 16))
+//                        .containerRelativeFrame(.horizontal) { len, _ in
+//                            abs(len / 2 - 16)
+//                        }
+                    }
 
+                }
+                if let linkedin = linkedinLink {
+                    NavigationLink {
+                        WebScreen(url: linkedin)
+                    } label: {
+                        LabeledContent("LinkedIn") {
+                            Image("linkedin")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 44, height: 44)
+                        }
+                        .padding(.vertical, 8)
+                        .padding(.horizontal)
+                        .background(.ultraThickMaterial)
+                        .clipShape(.rect(cornerRadius: 16))
+//                        .containerRelativeFrame(.horizontal) { len, _ in
+//                            abs(len / 2 - 16)
+//                        }
+                    }
+                }
             }
-            .padding(1)
-        }
+            
         .padding(.horizontal)
     }
 }
 
 #Preview {
-    SocialLinksView(user: DBUser.MOCK_USER)
+    SocialLinksView(githubLink: "github.com", linkedinLink: "linkedin.com")
 }

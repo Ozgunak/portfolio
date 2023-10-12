@@ -28,6 +28,7 @@ struct UserProfileView: View {
                     
                     actionButton
                     
+                    SocialLinksView(githubLink: viewModel.user.github, linkedinLink: viewModel.user.linkedin)
                     Divider()
                     ForEach(viewModel.projects) { project in
                         ProjectItemView(project: project)
@@ -85,7 +86,7 @@ struct UserProfileView: View {
                     try await viewModel.fetchUserProjects()
 
                 } catch {
-                    print("Error: <#description#> \(error.localizedDescription)")
+                    print("Error:  \(error.localizedDescription)")
                 }
             }
             
