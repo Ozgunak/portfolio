@@ -75,7 +75,7 @@ struct SearchItemView: View {
 extension SearchItemView {
     var profileSection: some View {
         NavigationLink {
-            ProfileFactory(user: user, isVisitor: !user.isCurrentUser, navStackNeeded: false)
+            ProfileFactory(user: user, isVisitor: !user.isCurrentUser, navStackNeeded: false, tabIndex: .constant(4))
         } label: {
             HStack {
                 OzProfileImageView(urlString: user.profileImageURL, size: .small)

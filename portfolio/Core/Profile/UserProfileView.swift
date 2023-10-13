@@ -68,6 +68,7 @@ struct UserProfileView: View {
                         
                         Button("SignOut") {
                             try? AuthenticationManager.shared.signOut()
+                            Task { try? await AuthenticationManager.shared.signInAnonymously }
                             showSignInView = true
                         }
                     } label: {

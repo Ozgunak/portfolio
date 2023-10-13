@@ -15,7 +15,7 @@ struct FeedItemView: View {
         VStack {
             if let user = project.user {
                 NavigationLink {
-                    ProfileFactory(user: user, isVisitor: !user.isCurrentUser, navStackNeeded: false)
+                    ProfileFactory(user: user, isVisitor: !user.isCurrentUser, navStackNeeded: false, tabIndex: .constant(4))
                 } label: {
                     header()
                 }

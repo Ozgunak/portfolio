@@ -6,12 +6,16 @@
 //
 
 import Foundation
-import FirebaseAuth
+//import FirebaseAuth
+import Firebase
 
 final class AuthenticationManager {
     
+    @Published var userSession: User?
     static let shared = AuthenticationManager()
-    private init() { }
+    private init() {
+        self.userSession = Auth.auth().currentUser
+    }
     
     func getAuthUser() throws -> AuthDataResultModel {
         guard let user = Auth.auth().currentUser else { throw URLError(.badURL) }
@@ -47,6 +51,7 @@ final class AuthenticationManager {
     
     func signOut() throws {
         try Auth.auth().signOut()
+        self.userSession = nil
     }
     
     @discardableResult

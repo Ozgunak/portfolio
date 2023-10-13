@@ -72,23 +72,22 @@ struct ProjectView: View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 40, height: 40)
-//                                .onTapGesture {
-//                                    dismiss()
-//                                }
                         }
-
-                        
+                    } else {
+                        EmptyView()
                     }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
-                    if let user = project.user {
-                        NavigationLink {
-                            ProfileFactory(user: user, isVisitor: !user.isCurrentUser, navStackNeeded: false)
-                        } label: {
-                            OzProfileImageView(urlString: user.profileImageURL, size: .small)
-                        }
-                    }
-                }
+//                ToolbarItem(placement: .topBarTrailing) {
+//                    if let user = project.user {
+//                        NavigationLink {
+//                            ProfileFactory(user: user, isVisitor: !user.isCurrentUser, navStackNeeded: false)
+//                        } label: {
+//                            OzProfileImageView(urlString: user.profileImageURL, size: .small)
+//                        }
+//                    } else {
+//                        EmptyView()
+//                    }
+//                }
                 
             }
             .navigationBarBackButtonHidden()

@@ -13,7 +13,8 @@ struct ProfileFactory: View {
     let isVisitor: Bool
     var navStackNeeded: Bool
     @Environment(\.dismiss) var dismiss
-
+    @State private var isShown: Bool = false
+    @Binding var tabIndex: Int
     @State private var showSignInView: Bool = false
 
 
@@ -48,11 +49,36 @@ struct ProfileFactory: View {
                 }
             }
         }
-        .sheet(isPresented: $showSignInView) {
+//        .sheet(isPresented: $showSignInView) {
+//            NavigationStack {
+//                LoginView(showSignInView: $showSignInView)
+//            }
+//        }
+        .sheet(isPresented: $showSignInView, onDismiss: {
+            Task {
+                do {
+                    authUser = try AuthenticationManager.shared.getAuthUser()
+                    if let authUser {
+                        if isShown {
+                            tabIndex = 0
+                            isShown = false 
+                            return
+                        }
+                        self.showSignInView = authUser.isAnonymous == true
+                        if !authUser.isAnonymous {
+                            user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
+                        }
+                        isShown = true
+                    }
+                } catch {
+                    print("Error: fetching user \(error.localizedDescription)")
+                }
+            }
+        }, content: {
             NavigationStack {
                 LoginView(showSignInView: $showSignInView)
             }
-        }
+        })
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Image(systemName: "chevron.left")
@@ -66,5 +92,5 @@ struct ProfileFactory: View {
 }
 
 #Preview {
-    ProfileFactory(user: DBUser.MOCK_USER, isVisitor: false, navStackNeeded: true)
+    ProfileFactory(user: DBUser.MOCK_USER, isVisitor: false, navStackNeeded: true, tabIndex: .constant(4))
 }

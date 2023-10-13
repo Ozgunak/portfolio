@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import PhotosUI
+import Combine
 
 @MainActor
 class AddProjectViewModel: ObservableObject {
@@ -26,6 +27,10 @@ class AddProjectViewModel: ObservableObject {
     @Published var uploadedCoverImageUrl: String?
     @Published var backgroundImage: BackgroundImages = .bg3
     @Published var isPublic: Bool = true
+    @Published var userSession: User?
+    init() {
+        setupSubscribers()
+    }
     private var uiImage: UIImage?
     
     func loadImage(from item: PhotosPickerItem?) async {
@@ -70,6 +75,12 @@ class AddProjectViewModel: ObservableObject {
         try await projectRef.setData(encodedProject)
         uploadText = ""
     }
+    
+    private func setupSubscribers() {
+        AuthenticationManager.shared.$userSession.sink { userSession in
+            self.userSession = userSession
+        }
+    }
 }
 
 struct AddProjectView: View {
@@ -77,7 +88,8 @@ struct AddProjectView: View {
     @State private var isPickerPresented: Bool = false
     @StateObject var viewModel = AddProjectViewModel()
     @Binding var tabIndex: Int
-    
+    @State private var showSignInView: Bool = false
+
     var body: some View {
         if isLoading {
             VStack {
@@ -137,7 +149,16 @@ struct AddProjectView: View {
 //                    )
                 // MARK: Overlay for images
             }
+            .onAppear {
+                showSignInView = viewModel.userSession?.isAnonymous == true
+            }
+            .sheet(isPresented: $showSignInView) {
+                NavigationStack {
+                    LoginView(showSignInView: $showSignInView)
+                }
+            }
         }
+            
     }
     
     private func clearProjectData() {
