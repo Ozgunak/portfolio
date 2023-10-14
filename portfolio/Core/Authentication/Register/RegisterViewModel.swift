@@ -30,4 +30,11 @@ class RegistrationViewModel: ObservableObject {
             print("Linked user with email")
         }
     }
+    
+    func isValidInput() -> Bool {
+        let emailText = (email.count > 5 && email.contains("@"))
+        let passText = (password.count > 5)
+        let userText = (username.count > 3)
+        return !(emailText && passText && userText)
+    }
 }
