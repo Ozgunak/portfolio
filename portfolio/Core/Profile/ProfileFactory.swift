@@ -61,7 +61,7 @@ struct ProfileFactory: View {
                     if let authUser {
                         if isShown {
                             tabIndex = 0
-                            isShown = false 
+                            isShown = false
                             return
                         }
                         self.showSignInView = authUser.isAnonymous == true

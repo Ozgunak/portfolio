@@ -12,8 +12,12 @@ class LoginViewModel: ObservableObject {
     @Published var password = ""
     
     func login() async throws {
-        if !email.isEmpty && !password.isEmpty {
             try await AuthenticationManager.shared.signInUser(email: email, password: password)
-        }
+    }
+    
+    func isValidInput() -> Bool {
+        let emailText = (email.count > 5 && email.contains("@"))
+        let passText = (password.count > 5)
+        return (emailText && passText)
     }
 }
