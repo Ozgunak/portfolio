@@ -32,7 +32,7 @@ struct RegisterView: View {
                 .fontWeight(.bold)
                 .padding(.top)
             
-            TextField("Username", text: $viewModel.username)
+            TextField("Username (min 4 char)", text: $viewModel.username)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
                 .modifier(TextFieldModifier())
@@ -61,7 +61,7 @@ struct RegisterView: View {
                 }
 
             
-            SecureField("Password", text: $viewModel.password)
+            SecureField("Password (min 6 char)", text: $viewModel.password)
                 .textInputAutocapitalization(.never)
                 .modifier(TextFieldModifier())
                 .submitLabel(.done)
