@@ -34,4 +34,20 @@ struct ProjectManager {
         return snapshot.documents.compactMap({ try? $0.data(as: Project.self) }).sorted(by: { $0.timeStamp.seconds > $1.timeStamp.seconds } )
     }
 
+    func likeProject(project: Project) async throws {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        
+        try await projectsCollectionPath.document(project.id).updateData([
+            "likes": FieldValue.arrayUnion([userId])
+        ])
+    }
+    
+    func unlikeProject(project: Project) async throws {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        try await projectsCollectionPath.document(project.id).updateData([
+            "likes": FieldValue.arrayRemove([userId])
+        ])
+    }
 }
