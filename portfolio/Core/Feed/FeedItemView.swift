@@ -135,12 +135,13 @@ extension FeedItemView {
                 Button {
                     like()
                 } label: {
-                    Image(systemName: "heart")
-                        .foregroundColor(.accentColor)
+                    Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
+                        .foregroundColor(viewModel.isLiked ? Color.red : Color.accentColor)
                     Text("^[\(viewModel.project.likes.count) like](inflect: true)")
                         .font(.footnote)
                         .padding(.trailing, 4)
                 }
+                .animation(.easeInOut, value: viewModel.isLiked)
                 Button {
                 } label: {
                     Image(systemName: "bubble.right")
