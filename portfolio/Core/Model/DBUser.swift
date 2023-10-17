@@ -25,8 +25,7 @@ struct DBUser: Identifiable, Hashable, Codable {
     var projects: [Project]?
     
     var isCurrentUser: Bool {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return false }
-        print("current User? \(currentUid == id)")
+        guard let currentUid = Auth.auth().currentUser?.uid else { return false }        
         return currentUid == id
     }
     
