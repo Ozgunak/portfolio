@@ -98,12 +98,35 @@ extension FeedItemView {
                                 .clipShape(.rect(cornerRadius: 8))
                             Text(viewModel.project.description)
                                 .font(.footnote)
+                                .lineLimit(3)
+                                .minimumScaleFactor(0.5)
                                 .padding(4)
                                 .background(.ultraThickMaterial)
                                 .clipShape(.rect(cornerRadius: 8))
                         }
                     }
+                } else {
+                    ZStack {
+                        LinearGradient(colors: [.green, .blue, .yellow], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        .opacity(0.8)
+                        VStack {
+                            Text(viewModel.project.projectTitle)
+                                .font(.title)
+                                .padding(4)
+                                .background(.thickMaterial)
+                                .clipShape(.rect(cornerRadius: 8))
+                            Text(viewModel.project.description)
+                                .font(.footnote)
+                                .lineLimit(3)
+                                .minimumScaleFactor(0.5)
+                                .padding(4)
+                                .background(.ultraThickMaterial)
+                                .clipShape(.rect(cornerRadius: 8))
+                        }
+                    }
+
                 }
+                
                 ForEach(viewModel.project.detailImageUrls, id: \.self) { url in
                     ZStack {
                         KFImage(URL(string: url))
@@ -131,36 +154,43 @@ extension FeedItemView {
             .tabViewStyle(.page)
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             .frame(height: 400)
-            HStack{
-                Button {
-                    like()
-                } label: {
-                    Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
-                        .foregroundColor(viewModel.isLiked ? Color.red : Color.accentColor)
-                    Text("^[\(viewModel.project.likes.count) like](inflect: true)")
-                        .font(.footnote)
-                        .padding(.trailing, 4)
-                }
-                .animation(.easeInOut, value: viewModel.isLiked)
-                Button {
-                } label: {
-                    Image(systemName: "bubble.right")
-                    Text("^[\(8) comment](inflect: true)")
-                        .font(.footnote)
-                        .padding(.trailing, 4)
-                }
-                Button {
-                } label: {
-                    Image(systemName: "paperplane")
-                    Text("Share")
-                }
-                .font(.footnote)
-                .padding(.trailing, 4)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
-            .padding(.top, 2)
+            
+            likeCommentSection
         }
+    }
+    
+    var likeCommentSection: some View {
+        HStack{
+            Button {
+                like()
+            } label: {
+                Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
+                    .foregroundColor(viewModel.isLiked ? Color.red : Color.accentColor)
+                Text("^[\(viewModel.project.likes.count) like](inflect: true)")
+                    .font(.footnote)
+                    .padding(.trailing, 4)
+            }
+            .animation(.easeInOut, value: viewModel.isLiked)
+            Spacer()
+            Button {
+            } label: {
+                Text("^[\(8) comment](inflect: true)")
+                    .font(.footnote)
+                    .padding(.trailing, 4)
+                Image(systemName: "bubble.right")
+
+            }
+//                Button {
+//                } label: {
+//                    Image(systemName: "paperplane")
+//                    Text("Share")
+//                }
+//                .font(.footnote)
+//                .padding(.trailing, 4)
+        }
+//            .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal)
+        .padding(.top, 2)
     }
     
     var videoSection: some View {
