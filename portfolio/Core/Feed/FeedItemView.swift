@@ -10,10 +10,15 @@ import Kingfisher
 //import AVKit
 
 struct FeedItemView: View {
-    let project: Project
+    @StateObject var viewModel: FeedItemViewModel
+    
+    init(project: Project) {
+        self._viewModel = StateObject(wrappedValue: FeedItemViewModel(project: project))
+    }
+    
     var body: some View {
         VStack {
-            if let user = project.user {
+            if let user = viewModel.project.user {
                 NavigationLink {
                     ProfileFactory(user: user, isVisitor: !user.isCurrentUser, navStackNeeded: false, tabIndex: .constant(4))
                 } label: {
@@ -22,7 +27,7 @@ struct FeedItemView: View {
 
             }
             NavigationLink {
-                ProjectView(project: project)
+                ProjectView(project: viewModel.project)
             } label: {
                 postBody
             }
@@ -38,16 +43,16 @@ struct FeedItemView: View {
 extension FeedItemView {
     func header() -> some View {
         HStack {
-            if let url = project.user?.profileImageURL {
+            if let url = viewModel.project.user?.profileImageURL {
                 OzProfileImageView(urlString: url, size: .small)
             }
             
-            Text(project.user?.username ?? "Test")
+            Text(viewModel.project.user?.username ?? "Test")
                 .font(.subheadline)
                 .fontWeight(.semibold)
                 .padding(.leading, 4)
             
-            Text(project.timeStamp.dateValue().formatted(.relative(presentation: .numeric)))
+            Text(viewModel.project.timeStamp.dateValue().formatted(.relative(presentation: .numeric)))
                 .font(.caption)
                 .fontWeight(.thin)
         }
@@ -57,14 +62,14 @@ extension FeedItemView {
     
     var postBody: some View {
         VStack {
-            Text(project.user?.title ?? "Test title")
+            Text(viewModel.project.user?.title ?? "Test title")
                 .font(.footnote)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
                 .padding(.top, 2)
             
             TabView {
-                if let coverUrl = project.coverImageURL, !coverUrl.isEmpty {
+                if let coverUrl = viewModel.project.coverImageURL, !coverUrl.isEmpty {
                     ZStack {
                         KFImage(URL(string: coverUrl))
                             .placeholder({
@@ -86,12 +91,12 @@ extension FeedItemView {
                                 .scaledToFill()
                                 .frame(width: 100, height: 100)
                                 .clipShape(.rect(cornerRadius: 15))
-                            Text(project.projectTitle)
+                            Text(viewModel.project.projectTitle)
                                 .font(.title)
                                 .padding(4)
                                 .background(.thickMaterial)
                                 .clipShape(.rect(cornerRadius: 8))
-                            Text(project.description)
+                            Text(viewModel.project.description)
                                 .font(.footnote)
                                 .padding(4)
                                 .background(.ultraThickMaterial)
@@ -99,7 +104,7 @@ extension FeedItemView {
                         }
                     }
                 }
-                ForEach(project.detailImageUrls, id: \.self) { url in
+                ForEach(viewModel.project.detailImageUrls, id: \.self) { url in
                     ZStack {
                         KFImage(URL(string: url))
                             .placeholder({
@@ -128,10 +133,11 @@ extension FeedItemView {
             .frame(height: 400)
             HStack{
                 Button {
+                    like()
                 } label: {
                     Image(systemName: "heart")
                         .foregroundColor(.accentColor)
-                    Text("^[\(8) like](inflect: true)")
+                    Text("^[\(viewModel.project.likes.count) like](inflect: true)")
                         .font(.footnote)
                         .padding(.trailing, 4)
                 }
@@ -164,6 +170,14 @@ extension FeedItemView {
          .scaledToFit()
          } */
         Text("Uncomment When Video Needed")
+    }
+    
+    private func like() {
+        if viewModel.isLiked {
+            Task { try await viewModel.unlike() }
+        } else {
+            Task { try await viewModel.like() }
+        }
     }
 }
 #Preview {
