@@ -31,16 +31,18 @@ struct FeedView: View {
 //                        .scaledToFill()
 //                        .frame(width: 100)
 //                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
+//                ToolbarItem(placement: .topBarTrailing) {
+//                    NavigationLink {
 //                        AllMessagesView()
 //                            .navigationBarBackButtonHidden()
-                    } label: {
-                        Image(systemName: "plus.bubble")
-                            .resizable()
-                            .scaledToFill()
-                    }
-                }
+//                    } label: {
+//                        Image(systemName: "bubble")
+//                            .resizable()
+//                            .scaledToFill()
+//                    }
+//                }
+                
+                // TODO: Notifications
             }
             .refreshable {
                 try? await viewModel.fetchProjects()

@@ -35,11 +35,11 @@ struct TabBarView: View {
                 .tag(2)
             
             
-            MyProjectsView()
+            AllMessagesView()
                 .onAppear {
                     selectedIndex = 3
                 }
-                .tabItem { Image(systemName: "heart") }
+                .tabItem { Image(systemName: "bubble") }
                 .tag(3)
             
             
