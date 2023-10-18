@@ -63,7 +63,7 @@ struct ProjectView: View {
                             dismiss()
                         }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(id: "1", placement: .topBarTrailing) {
                     if let github = project.github {
                         NavigationLink {
                             WebScreen(url: github)
@@ -77,16 +77,26 @@ struct ProjectView: View {
                         EmptyView()
                     }
                 }
-//                ToolbarItem(placement: .topBarTrailing) {
-//                    if let user = project.user {
-//                        NavigationLink {
-//                            ProfileFactory(user: user, isVisitor: !user.isCurrentUser, navStackNeeded: false)
-//                        } label: {
-//                            OzProfileImageView(urlString: user.profileImageURL, size: .small)
-//                        }
-//                    } else {
-//                        EmptyView()
+                ToolbarItem(id: "2", placement: .topBarTrailing) {
+                    NavigationLink {
+                        // new message to project creator
+                    } label: {
+                        Image(systemName: "plus.bubble")
+                            .resizable()
+                            .scaledToFill()
+                    }
+                }
+//                ToolbarItem(id: "3", placement: .topBarTrailing) {
+                    //                    if let user = project.user {
+//                    NavigationLink {
+//                        ProfileFactory(user: project.user, isVisitor: !project.user.isCurrentUser, navStackNeeded: false)
+//                    } label: {
+//                        OzProfileImageView(urlString: project.user.profileImageURL, size: .small)
 //                    }
+                    //                                      }
+//                }
+//                ToolbarItem(placement: .topBarTrailing) {
+//
 //                }
                 
             }
