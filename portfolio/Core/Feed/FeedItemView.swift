@@ -172,14 +172,14 @@ extension FeedItemView {
             }
             .animation(.easeInOut, value: viewModel.isLiked)
             Spacer()
-            Button {
-            } label: {
-                Text("^[\(8) comment](inflect: true)")
-                    .font(.footnote)
-                    .padding(.trailing, 4)
-                Image(systemName: "bubble.right")
-
-            }
+//            Button {
+//            } label: {
+//                Text("^[\(8) comment](inflect: true)")
+//                    .font(.footnote)
+//                    .padding(.trailing, 4)
+//                Image(systemName: "bubble.right")
+//
+//            }
 //                Button {
 //                } label: {
 //                    Image(systemName: "paperplane")
