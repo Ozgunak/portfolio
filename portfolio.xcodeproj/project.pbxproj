@@ -25,6 +25,7 @@
 		F07EA1B82ADFB91E00183E9B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EA1B72ADFB91E00183E9B /* Constants.swift */; };
 		F07EA1BA2ADFC78200183E9B /* AddProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EA1B92ADFC78200183E9B /* AddProjectViewModel.swift */; };
 		F07EA1BD2ADFCA1300183E9B /* SignUpPromoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EA1BC2ADFCA1300183E9B /* SignUpPromoteView.swift */; };
+		F07EA1BF2AE10CD200183E9B /* ProfileFactoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EA1BE2AE10CD200183E9B /* ProfileFactoryViewModel.swift */; };
 		F084FF012ACA2B5D00EAA963 /* portfolioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF002ACA2B5D00EAA963 /* portfolioApp.swift */; };
 		F084FF032ACA2B5D00EAA963 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF022ACA2B5D00EAA963 /* FeedView.swift */; };
 		F084FF052ACA2B5F00EAA963 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F084FF042ACA2B5F00EAA963 /* Assets.xcassets */; };
@@ -94,6 +95,7 @@
 		F07EA1B72ADFB91E00183E9B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F07EA1B92ADFC78200183E9B /* AddProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectViewModel.swift; sourceTree = "<group>"; };
 		F07EA1BC2ADFCA1300183E9B /* SignUpPromoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPromoteView.swift; sourceTree = "<group>"; };
+		F07EA1BE2AE10CD200183E9B /* ProfileFactoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFactoryViewModel.swift; sourceTree = "<group>"; };
 		F084FEFD2ACA2B5D00EAA963 /* portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F084FF002ACA2B5D00EAA963 /* portfolioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = portfolioApp.swift; sourceTree = "<group>"; };
 		F084FF022ACA2B5D00EAA963 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				F084FF252ACA8E0E00EAA963 /* ProfileFactory.swift */,
+				F07EA1BE2AE10CD200183E9B /* ProfileFactoryViewModel.swift */,
 				F084FF332ACA904D00EAA963 /* ProfileView.swift */,
 				F084FF352ACA907300EAA963 /* ProfileViewModel.swift */,
 				F084FF272ACA8E2B00EAA963 /* UserProfileView.swift */,
@@ -535,6 +538,7 @@
 				F084FF2D2ACA8EE600EAA963 /* ProfileHeaderView.swift in Sources */,
 				F084FF672ACB43B200EAA963 /* FirestoreManager.swift in Sources */,
 				F084FF6B2ACBDFE800EAA963 /* AddProjectView.swift in Sources */,
+				F07EA1BF2AE10CD200183E9B /* ProfileFactoryViewModel.swift in Sources */,
 				F084FF5D2ACAA3F900EAA963 /* ForgotViewModel.swift in Sources */,
 				F07EA1BD2ADFCA1300183E9B /* SignUpPromoteView.swift in Sources */,
 				F084FF3E2ACA935A00EAA963 /* LoginView.swift in Sources */,
