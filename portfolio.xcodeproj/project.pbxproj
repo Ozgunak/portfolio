@@ -23,6 +23,8 @@
 		F07EA1B42ADF696B00183E9B /* MessageUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EA1B32ADF696B00183E9B /* MessageUserView.swift */; };
 		F07EA1B62ADF697400183E9B /* MessageUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EA1B52ADF697400183E9B /* MessageUserViewModel.swift */; };
 		F07EA1B82ADFB91E00183E9B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EA1B72ADFB91E00183E9B /* Constants.swift */; };
+		F07EA1BA2ADFC78200183E9B /* AddProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EA1B92ADFC78200183E9B /* AddProjectViewModel.swift */; };
+		F07EA1BD2ADFCA1300183E9B /* SignUpPromoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EA1BC2ADFCA1300183E9B /* SignUpPromoteView.swift */; };
 		F084FF012ACA2B5D00EAA963 /* portfolioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF002ACA2B5D00EAA963 /* portfolioApp.swift */; };
 		F084FF032ACA2B5D00EAA963 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084FF022ACA2B5D00EAA963 /* FeedView.swift */; };
 		F084FF052ACA2B5F00EAA963 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F084FF042ACA2B5F00EAA963 /* Assets.xcassets */; };
@@ -90,6 +92,8 @@
 		F07EA1B32ADF696B00183E9B /* MessageUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUserView.swift; sourceTree = "<group>"; };
 		F07EA1B52ADF697400183E9B /* MessageUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUserViewModel.swift; sourceTree = "<group>"; };
 		F07EA1B72ADFB91E00183E9B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F07EA1B92ADFC78200183E9B /* AddProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectViewModel.swift; sourceTree = "<group>"; };
+		F07EA1BC2ADFCA1300183E9B /* SignUpPromoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPromoteView.swift; sourceTree = "<group>"; };
 		F084FEFD2ACA2B5D00EAA963 /* portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F084FF002ACA2B5D00EAA963 /* portfolioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = portfolioApp.swift; sourceTree = "<group>"; };
 		F084FF022ACA2B5D00EAA963 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -191,6 +195,14 @@
 			path = MessageScreen;
 			sourceTree = "<group>";
 		};
+		F07EA1BB2ADFC9FC00183E9B /* SignUpWall */ = {
+			isa = PBXGroup;
+			children = (
+				F07EA1BC2ADFCA1300183E9B /* SignUpPromoteView.swift */,
+			);
+			path = SignUpWall;
+			sourceTree = "<group>";
+		};
 		F084FEF42ACA2B5D00EAA963 = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +244,7 @@
 		F084FF0E2ACA2BCD00EAA963 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F07EA1BB2ADFC9FC00183E9B /* SignUpWall */,
 				F07EA1A32ADF647000183E9B /* Messages */,
 				F084FF742ACCA14100EAA963 /* MyProjects */,
 				F084FF372ACA930900EAA963 /* Authentication */,
@@ -277,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				F084FF6A2ACBDFE800EAA963 /* AddProjectView.swift */,
+				F07EA1B92ADFC78200183E9B /* AddProjectViewModel.swift */,
 				F02966D52AD0E5C7003DE16C /* ProjectView.swift */,
 			);
 			path = Project;
@@ -511,6 +525,7 @@
 				F084FF7A2ACDD8D500EAA963 /* SearchView.swift in Sources */,
 				F084FF2A2ACA8E4300EAA963 /* UserProfileViewModel.swift in Sources */,
 				F07EA1AC2ADF652000183E9B /* NewMessageViewModel.swift in Sources */,
+				F07EA1BA2ADFC78200183E9B /* AddProjectViewModel.swift in Sources */,
 				F084FF402ACA938A00EAA963 /* TextFieldModifier.swift in Sources */,
 				F07EA1A82ADF64B900183E9B /* AllMessagesView.swift in Sources */,
 				F084FF282ACA8E2B00EAA963 /* UserProfileView.swift in Sources */,
@@ -521,6 +536,7 @@
 				F084FF672ACB43B200EAA963 /* FirestoreManager.swift in Sources */,
 				F084FF6B2ACBDFE800EAA963 /* AddProjectView.swift in Sources */,
 				F084FF5D2ACAA3F900EAA963 /* ForgotViewModel.swift in Sources */,
+				F07EA1BD2ADFCA1300183E9B /* SignUpPromoteView.swift in Sources */,
 				F084FF3E2ACA935A00EAA963 /* LoginView.swift in Sources */,
 				F084FF552ACA98A100EAA963 /* AuthenticationManager.swift in Sources */,
 				F084FF782ACCA57100EAA963 /* ProjectCoversView.swift in Sources */,

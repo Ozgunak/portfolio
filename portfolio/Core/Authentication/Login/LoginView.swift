@@ -18,96 +18,93 @@ struct LoginView: View {
 
     
     var body: some View {
-        VStack {
-            TextField("Enter your email", text: $viewModel.email)
-                .textInputAutocapitalization(.never)
-                .modifier(TextFieldModifier())
-                .submitLabel(.next)
-
-                .focused($focusField, equals: .email)
-                .onSubmit {
-                    focusField = .password
-                }
-                .onChange(of: viewModel.email) {
-                    buttonsDisabled = !viewModel.isValidInput()
-                }
-                .onAppear {
-                    buttonsDisabled = !viewModel.isValidInput()
-                }
+        NavigationStack {
+            VStack {
+                TextField("Enter your email", text: $viewModel.email)
+                    .textInputAutocapitalization(.never)
+                    .modifier(TextFieldModifier())
+                    .submitLabel(.next)
+                
+                    .focused($focusField, equals: .email)
+                    .onSubmit {
+                        focusField = .password
+                    }
+                    .onChange(of: viewModel.email) {
+                        buttonsDisabled = !viewModel.isValidInput()
+                    }
+                    .onAppear {
+                        buttonsDisabled = !viewModel.isValidInput()
+                    }
+                
+                SecureField("Enter your password", text: $viewModel.password)
+                    .modifier(TextFieldModifier())
+                    .submitLabel(.done)
+                    .focused($focusField, equals: .password)
+                    .onSubmit {
+                        focusField = .none
+                    }
+                    .onChange(of: viewModel.password) {
+                        buttonsDisabled = !viewModel.isValidInput()
+                    }
+            }
             
-            SecureField("Enter your password", text: $viewModel.password)
-                .modifier(TextFieldModifier())
-                .submitLabel(.done)
-                .focused($focusField, equals: .password)
-                .onSubmit {
-                    focusField = .none
+            
+            NavigationLink(destination: {
+                ForgotView()
+            }, label: {
+                Text("Forgot Password?")
+                    .font(.footnote)
+                    .fontWeight(.semibold)
+                    .padding(.top)
+                    .padding(.trailing, 28)
+            })
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            
+            
+            Button {
+                Task {
+                    do {
+                        try await viewModel.login()
+                        showSignInView = false
+                    } catch {
+                        print("Error : sign in \(error.localizedDescription)")
+                        alertMessage = "Error: sign in \(error.localizedDescription)"
+                        isAlertShowing = true
+                    }
                 }
-                .onChange(of: viewModel.password) {
-                    buttonsDisabled = !viewModel.isValidInput()
-                }
-        }
-        
-        
-        NavigationLink(destination: {
-            ForgotView()
-        }, label: {
-            Text("Forgot Password?")
-                .font(.footnote)
-                .fontWeight(.semibold)
-                .padding(.top)
-                .padding(.trailing, 28)
-        })
-        .frame(maxWidth: .infinity, alignment: .trailing)
-        
-        
-        Button {
-            Task {
-                do {
-                    try await viewModel.login()
-                    showSignInView = false
-                } catch {
-                    print("Error : sign in \(error.localizedDescription)")
-                    alertMessage = "Error: sign in \(error.localizedDescription)"
-                    isAlertShowing = true
-                }
+            } label: {
+                Text("Login")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.white)
+                    .frame(width: 360, height: 44)
+                    .background(buttonsDisabled ? Color.gray.gradient : Color.blue.gradient)
+                    .clipShape(.rect(cornerRadius: 8))
             }
-        } label: {
-            Text("Login")
+            .disabled(buttonsDisabled)
+            .padding(.vertical)
+            .alert(alertMessage, isPresented: $isAlertShowing) {
+                Button("OK", role: .cancel) {}
+            }
+            
+            NavigationLink {
+                RegisterView(showSignInView: $showSignInView)
+                    .navigationBarBackButtonHidden()
+            } label: {
+                Group {
+                    Text("Don't have an account? ") +
+                    Text("Sign Up")
+                        .fontWeight(.semibold)
+                }
                 .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundStyle(.white)
-                .frame(width: 360, height: 44)
-                .background(buttonsDisabled ? Color.gray.gradient : Color.blue.gradient)
-                .clipShape(.rect(cornerRadius: 8))
-        }
-        .disabled(buttonsDisabled)
-        .padding(.vertical)
-        .alert(alertMessage, isPresented: $isAlertShowing) {
-            Button("OK", role: .cancel) {}
-        }
-//        .onAppear {
-//            buttonsDisabled = !viewModel.isValidInput()
-//        }
-        
-        NavigationLink {
-            RegisterView(showSignInView: $showSignInView)
-                .navigationBarBackButtonHidden()
-        } label: {
-            Group {
-                Text("Don't have an account? ") +
-                Text("Sign Up")
-                .fontWeight(.semibold)
             }
-            .font(.subheadline)
+            .padding(.bottom)
+            
         }
-        .padding(.bottom)
-        
     }
        
 }
 
 #Preview {
-    NavigationStack {
         LoginView(showSignInView: .constant(true))
-    }
 }
