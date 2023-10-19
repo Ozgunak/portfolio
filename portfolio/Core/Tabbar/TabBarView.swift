@@ -43,7 +43,7 @@ struct TabBarView: View {
                 .tag(3)
             
             
-            ProfileFactory(isVisitor: false, navStackNeeded: true, tabIndex: $selectedIndex)
+            ProfileFactory(user: nil, isVisitor: false, navStackNeeded: true, tabIndex: $selectedIndex)
                 .onAppear {
                     selectedIndex = 4
                 }
