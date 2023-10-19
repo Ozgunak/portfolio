@@ -11,44 +11,50 @@ struct NewMessageView: View {
     @Environment(\.dismiss) var dismiss
     @State private var searchText: String = ""
     @StateObject var viewModel = NewMessageViewModel()
-    
+    @State private var isLoading: Bool = false
+
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVStack(spacing: 12) {
-                    if !searchText.isEmpty && viewModel.searchResultUsers.isEmpty {
-                        ContentUnavailableView("User not found", systemImage: "person.fill.questionmark")
-                    }
-                    ForEach(searchText.isEmpty ? viewModel.users : viewModel.searchResultUsers) { user in
-                        NavigationLink{
-                            MessageView(messanger: user)
-                                .navigationBarBackButtonHidden()
-                        } label: {
-                            HStack {
-                                OzProfileImageView(urlString: user.profileImageURL, size: .small)
-                                VStack(alignment: .leading) {
-                                    Text(user.username)
-                                        .fontWeight(.semibold)
-                                    
-                                    if user.fullName != nil {
-                                        Text(user.fullName!.capitalized)
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(.linear)
+                } else {
+                    LazyVStack(spacing: 12) {
+                        if !searchText.isEmpty && viewModel.searchResultUsers.isEmpty {
+                            ContentUnavailableView("User not found", systemImage: "person.fill.questionmark")
+                        }
+                        ForEach(searchText.isEmpty ? viewModel.users : viewModel.searchResultUsers) { user in
+                            NavigationLink{
+                                MessageView(messanger: user)
+                                    .navigationBarBackButtonHidden()
+                            } label: {
+                                HStack {
+                                    OzProfileImageView(urlString: user.profileImageURL, size: .small)
+                                    VStack(alignment: .leading) {
+                                        Text(user.username)
+                                            .fontWeight(.semibold)
+                                        
+                                        if user.fullName != nil {
+                                            Text(user.fullName!.capitalized)
+                                        }
                                     }
+                                    .font(.footnote)
+                                    
+                                    Spacer()
                                 }
-                                .font(.footnote)
-                                
-                                Spacer()
+                                .padding(.horizontal)
                             }
-                            .padding(.horizontal)
                         }
                     }
-                }
-                .padding(.top, 8)
-                .searchable(text: $searchText, prompt: "Search...")
-                .animation(.default, value: searchText)
-                .onChange(of: searchText, initial: true) {
-                    viewModel.searchResultUsers = viewModel.users.filter( { user in
-                        user.username.lowercased().contains(searchText.lowercased())
-                    })
+                    .padding(.top, 8)
+                    .searchable(text: $searchText, prompt: "Search...")
+                    .animation(.default, value: searchText)
+                    .onChange(of: searchText, initial: true) {
+                        viewModel.searchResultUsers = viewModel.users.filter( { user in
+                            user.username.lowercased().contains(searchText.lowercased())
+                        })
+                    }
                 }
             }
             .navigationTitle("New Message")
@@ -64,7 +70,9 @@ struct NewMessageView: View {
             }
             .task {
                 do {
+                    isLoading = true
                     try await viewModel.fetchAllUsers()
+                    isLoading = false
                 } catch {
                     print("Error: fetching users \(error.localizedDescription)")
                 }
