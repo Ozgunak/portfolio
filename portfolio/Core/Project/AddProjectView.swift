@@ -6,82 +6,7 @@
 //
 
 import SwiftUI
-import Firebase
 import PhotosUI
-import Combine
-
-@MainActor
-class AddProjectViewModel: ObservableObject {
-    @Published var selectedImage: PhotosPickerItem? {
-        didSet { Task { await loadImage(from: selectedImage) } }
-    }
-    @Published var projectImage: Image?
-    @Published var projectTitle: String = ""
-    @Published var description: String = ""
-    @Published var github: String = ""
-    @Published var selectionImages: [UIImage] = []
-    @Published var maxSelection: [PhotosPickerItem] = []
-    @Published var selectedVideo: PhotosPickerItem?
-    @Published var uploadText: String = ""
-    @Published var uploadedVideoUrl: String?
-    @Published var uploadedCoverImageUrl: String?
-    @Published var backgroundImage: BackgroundImages = .bg3
-    @Published var isPublic: Bool = true
-    @Published var userSession: User?
-    init() {
-        setupSubscribers()
-    }
-    private var uiImage: UIImage?
-    
-    func loadImage(from item: PhotosPickerItem?) async {
-        guard let item = item else { return }
-        
-        guard let data = try? await item.loadTransferable(type: Data.self) else { return }
-        guard let uiImage = UIImage(data: data) else { return }
-        self.uiImage = uiImage
-        self.projectImage = Image(uiImage: uiImage)
-    }
-    
-    func uploadVideo(projectRef: String) async throws -> String? {
-        guard let item = selectedVideo else { return nil }
-        guard let videoData = try await item.loadTransferable(type: Data.self) else { return nil }
-        guard let videoUrl = try await StorageManager.uploadVideo(data: videoData) else { return nil }
-        
-        try await FirestoreManager.shared.updateProjectVideo(projectId: projectRef, videoUrl: videoUrl)
-        print("Video uploaded and firebase updated")
-        return videoUrl
-    }
-    
-    func uploadProject() async throws {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        let projectRef = Firestore.firestore().collection(FirestorePath.projects.rawValue).document()
-        
-        if let uiImage  {
-            uploadText = "Uploading Cover Image"
-            uploadedCoverImageUrl = try await StorageManager.uploadImage(image: uiImage, savePath: .projects)
-        }
-        uploadText = "Uploading Video"
-        if selectedVideo != nil {
-            uploadedVideoUrl = try await uploadVideo(projectRef: projectRef.documentID) ?? ""
-        }
-        uploadText = "Uploading Detail Images"
-        var detailImages: [String] = []
-        for image in selectionImages {
-            guard let detailImageUrl = try await StorageManager.uploadImage(image: image, savePath: .projects) else { return }
-            detailImages.append(detailImageUrl)
-        }
-        let project = Project(id: projectRef.documentID, ownerUid: uid, projectTitle: projectTitle, description: description, likes: [], coverImageURL: uploadedCoverImageUrl, detailImageUrls: detailImages, backgroundImage: backgroundImage.rawValue, timeStamp: Timestamp(), videoUrl: uploadedVideoUrl, github: github, isPublic: isPublic)
-        guard let encodedProject = try? Firestore.Encoder().encode(project) else { return }
-        try await projectRef.setData(encodedProject)
-        uploadText = ""
-    }
-    
-    private func setupSubscribers() {
-        AuthenticationManager.shared.$userSession.sink { userSession in
-            self.userSession = userSession
-        }
-    }
-}
 
 struct AddProjectView: View {
     @State private var isLoading: Bool = false
@@ -89,86 +14,74 @@ struct AddProjectView: View {
     @StateObject var viewModel = AddProjectViewModel()
     @Binding var tabIndex: Int
     @State private var showSignInView: Bool = false
-
+    
     var body: some View {
-        if isLoading {
-            VStack {
-                ProgressView()
-                    .imageScale(.large)
-                    .padding(.bottom)
-                Text(viewModel.uploadText)
-                    .font(.headline)
-                Text("Please wait")
-                    .font(.subheadline)
-            }
-            .background {
-                viewModel.backgroundImage.image
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                
-            }
-        } else {
-            VStack {
-                header
-                
-                ScrollView {
-                    
-                    coverSection
-                    
-                    //                    videoSection
-                    descriptionSection
-                    
-                    githubSection
-                    
-                    photosSection
-                    
-                    Spacer(minLength: 50)
-                    
-                    toggleSection
-                    
-                    
-                    
-                }
-                .onAppear {
-                    //                isPickerPresented.toggle()
-                }
-                .photosPicker(isPresented: $isPickerPresented, selection: $viewModel.selectedImage, matching: .any(of: [.images, .not(.videos)]))
-                
-                
-                BackgroundPickerView(selectedImage: $viewModel.backgroundImage)
-                
-            }
-            .background {
-                viewModel.backgroundImage.image
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-//                    .overlay(
-//                        LinearGradient(gradient: Gradient(colors: [.black.opacity(0.2), .clear, .black.opacity(0.2)]),startPoint: .top, endPoint: .bottom)
-//                    )
-                // MARK: Overlay for images
-            }
-            .onAppear {
-                showSignInView = viewModel.userSession?.isAnonymous == true
-            }
-            .sheet(isPresented: $showSignInView) {
-                NavigationStack {
-                    LoginView(showSignInView: $showSignInView)
+        VStack {
+            if viewModel.userSession?.isAnonymous == true {
+                SignUpPromoteView()
+            } else {
+                if isLoading {
+                    VStack {
+                        ProgressView()
+                            .imageScale(.large)
+                            .padding(.bottom)
+                        Text(viewModel.uploadText)
+                            .font(.headline)
+                        Text("Please wait")
+                            .font(.subheadline)
+                    }
+                    .background {
+                        viewModel.backgroundImage.image
+                            .resizable()
+                            .scaledToFill()
+                            .ignoresSafeArea()
+                    }
+                } else {
+                    VStack {
+                        header
+                        
+                        ScrollView {
+                            
+                            coverSection
+                            
+                            //                    videoSection
+                            descriptionSection
+                            
+                            githubSection
+                            
+                            photosSection
+                            
+                            Spacer(minLength: 50)
+                            
+                            toggleSection
+                            
+                            
+                            
+                        }
+                        .photosPicker(isPresented: $isPickerPresented, selection: $viewModel.selectedImage, matching: .any(of: [.images, .not(.videos)]))
+                        
+                        
+                        BackgroundPickerView(selectedImage: $viewModel.backgroundImage)
+                        
+                    }
+                    .background {
+                        viewModel.backgroundImage.image
+                            .resizable()
+                            .scaledToFill()
+                            .ignoresSafeArea()
+                        //                    .overlay(
+                        //                        LinearGradient(gradient: Gradient(colors: [.black.opacity(0.2), .clear, .black.opacity(0.2)]),startPoint: .top, endPoint: .bottom)
+                        //                    )
+                        // MARK: Overlay for images
+                    }
                 }
             }
         }
-            
-    }
-    
-    private func clearProjectData() {
-        viewModel.maxSelection = []
-        viewModel.selectionImages = []
-        viewModel.description = ""
-        viewModel.projectTitle = ""
-        viewModel.selectedImage = nil
-        viewModel.projectImage = nil
-        tabIndex = 0
+        .sheet(isPresented: $showSignInView, content: {
+            NavigationStack {
+                LoginView(showSignInView: $showSignInView)
+            }
+        })
     }
 }
 
@@ -177,7 +90,8 @@ extension AddProjectView {
     var header: some View {
         HStack {
             Button(role: .cancel) {
-                clearProjectData()
+                viewModel.clearProjectData()
+                tabIndex = 0
             } label: {
                 Text("Cancel")
             }
@@ -187,8 +101,10 @@ extension AddProjectView {
             Button {
                 Task {
                     isLoading = true
+                    
                     try await viewModel.uploadProject()
-                    clearProjectData()
+                    viewModel.clearProjectData()
+                    tabIndex = 0
                     isLoading = false
                 }
             } label: {
