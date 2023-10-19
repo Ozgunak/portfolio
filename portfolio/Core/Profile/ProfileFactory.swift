@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProfileFactory: View {
-    @State var user: DBUser?
     @State var authUser: AuthDataResultModel?
     let isVisitor: Bool
     var navStackNeeded: Bool
@@ -16,69 +15,40 @@ struct ProfileFactory: View {
     @State private var isShown: Bool = false
     @Binding var tabIndex: Int
     @State private var showSignInView: Bool = false
-
+    @StateObject var viewModel: ProfileFactoryViewModel
+    
+    init(user: DBUser?, isVisitor: Bool, navStackNeeded: Bool, tabIndex: Binding<Int>) {
+        self.isVisitor = isVisitor
+        self.navStackNeeded = navStackNeeded
+        self._tabIndex = tabIndex
+        self._viewModel = StateObject(wrappedValue: ProfileFactoryViewModel(user: user))
+    }
 
     var body: some View {
         VStack {
-            if let user, navStackNeeded, user.isCurrentUser {
+            if let user = viewModel.user, isVisitor {
+                ProfileView(user: user)
+                    .navigationBarBackButtonHidden()
+            } else if viewModel.userSession?.isAnonymous == true {
+                SignUpPromoteView()
+                    .navigationBarBackButtonHidden()
+            } else if let user = viewModel.user, navStackNeeded, user.isCurrentUser {
                 NavigationStack {
                     UserProfileView(user: user, showSignInView: $showSignInView)
                         .navigationBarBackButtonHidden()
                 }
-            } else if let user, user.isCurrentUser {
+            } else if let user = viewModel.user, user.isCurrentUser {
                 UserProfileView(user: user, showSignInView: $showSignInView)
                     .navigationBarBackButtonHidden()
-            } else if let user, isVisitor {
-                ProfileView(user: user)
-                    .navigationBarBackButtonHidden()
-
             }
         }
         .task {
-            if !isVisitor {
-                do {
-                    authUser = try AuthenticationManager.shared.getAuthUser()
-                    if let authUser {
-                        self.showSignInView = authUser.isAnonymous == true
-                        if !authUser.isAnonymous {
-                            user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
-                        }
-                    }
-                } catch {
-                    print("Error: fetching user \(error.localizedDescription)")
-                }
+            do {
+                try await viewModel.fetchProfile()
+            } catch {
+                print("Error: fetching profile \(error.localizedDescription)")
             }
         }
-//        .sheet(isPresented: $showSignInView) {
-//            NavigationStack {
-//                LoginView(showSignInView: $showSignInView)
-//            }
-//        }
-        .sheet(isPresented: $showSignInView, onDismiss: {
-            Task {
-                do {
-                    authUser = try AuthenticationManager.shared.getAuthUser()
-                    if let authUser {
-                        if isShown {
-                            tabIndex = 0
-                            isShown = false
-                            return
-                        }
-                        self.showSignInView = authUser.isAnonymous == true
-                        if !authUser.isAnonymous {
-                            user = try await FirestoreManager.shared.fetchUser(userId: authUser.uid)
-                        }
-                        isShown = true
-                    }
-                } catch {
-                    print("Error: fetching user \(error.localizedDescription)")
-                }
-            }
-        }, content: {
-            NavigationStack {
-                LoginView(showSignInView: $showSignInView)
-            }
-        })
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Image(systemName: "chevron.left")
