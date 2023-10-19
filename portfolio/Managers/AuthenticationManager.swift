@@ -22,21 +22,27 @@ final class AuthenticationManager {
         return AuthDataResultModel(user: user)
     }
     
+    @MainActor
     @discardableResult
     func createUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authData = try await Auth.auth().createUser(withEmail: email, password: password)
+        userSession = authData.user
         return AuthDataResultModel(user: authData.user)
     }
     
+    @MainActor
     @discardableResult
     func signInUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authData = try await Auth.auth().signIn(withEmail: email, password: password)
+        userSession = authData.user
         return AuthDataResultModel(user: authData.user)
     }
     
+    @MainActor
     @discardableResult
     func signInAnonymously() async throws -> AuthDataResultModel {
         let authData = try await Auth.auth().signInAnonymously()
+        userSession = authData.user
         return AuthDataResultModel(user: authData.user)
     }
     
@@ -49,9 +55,10 @@ final class AuthenticationManager {
         try await user.updatePassword(to: password)
     }
     
+//    @MainActor
     func signOut() throws {
         try Auth.auth().signOut()
-        self.userSession = nil
+        userSession = nil
     }
     
     @discardableResult
@@ -62,7 +69,7 @@ final class AuthenticationManager {
         print("\(user.uid) \(user.isAnonymous)")
         do {
             let authData = try await user.link(with: credential)
-            print("linked")
+            print("auth \(authData)")
             return nil
 //            return AuthDataResultModel(user: authData.user)
         } catch {
